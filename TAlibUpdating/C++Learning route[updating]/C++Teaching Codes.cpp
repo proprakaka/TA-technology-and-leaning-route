@@ -8,6 +8,15 @@
 #include<cstdlib>
 #include<ctime>
 
+//C++的数学运算头文件
+#include<cmath>
+
+//C++的字符串操作头文件
+#include<cstring>
+
+//C++的string操作头文件
+#include<string>
+
 //命名空间
 using namespace std;
 
@@ -17,8 +26,30 @@ using namespace std;
 /*这是注释语法的
 第二种书写方式*/
 
-//由于有些变量没有被我们调用，编译器就会弹出警告【红色波浪线】
+//全局变量定义
+int Global_Variables = NULL;
+
+//一般函数的标准形式
+int max(int num1 , int num2){
+    int result = NULL;
+    if(num1 > num2){
+        result = num1;
+    }else {
+        result = num2;
+    }
+    return result;
+}
+//函数声明：可以用于在其他地方单独定义：见return 0 后
+int min(int num1 , int num2);
+
+
+//若变量没有被我们调用或初始化，编译器就会弹出警告【红色波浪线】
 int main(){
+    //预制宏
+    cout << "__DATE__:" << __DATE__ << endl;                             
+    cout << "__TIME__:" << __TIME__ << endl;
+    cout << "__FILE__:" << __FILE__ << endl;
+    cout << "__LINE__:" << __LINE__ << "\n\n";
     //常见内置类型
     int type_int = 1;
     float type_float = 0.1F;
@@ -231,25 +262,115 @@ string used \'\\\' in the sentence\n";
         }
     }
     //5.continue语句
+    cout<<"\ncontinue与break在一种位置，但作用是重新开始当前循环而不是终止"<<endl;
+    
+    /*以下是C++的函数*/
+    cout<< "\nC++一般函数形式-比较数的大小" << endl;
+    //由于C/C++不允许在函数内部定义另一个函数，即嵌套函数是非标准的，故而放置在main函数外
+    int Compare_num1 = rand();
+    int Compare_num2 = rand();
+    cout<< "两数比较结果:"<< max(Compare_num1,Compare_num2)<<endl;
+    cout<< "两束比较结果:"<< min(Compare_num1,Compare_num2)<<"\n\n";
+    
+    cout << "\n----------------------C++常见数学元素----------------------"<<endl;  
+    /*C++常见的数学运算*/
+    cout << "\n以下是<cmat>常见数学运算"<<endl;
+    double math_num1 = 14.3;
+    double math_num2 = 11.1;
+    cout << "num1 = " << math_num1 <<endl;
+    cout << "num2 = " << math_num2 <<endl;
+    cout << "sinx = " << sin(math_num1) <<endl;
+    cout << "cosx = " << cos(math_num1) <<endl;
+    cout << "tanx = " << tan(math_num1) <<endl;
+    cout << "lnx = " << log(math_num1) <<endl;
+    cout << "powx(2) = " << pow(math_num1,2) <<endl;
+    cout << "hypot(x,y) = " << hypot(math_num1,math_num2) <<endl;
+    cout << "sqrt(x) = " << sqrt(math_num1) <<endl;
+    cout << "fabs(|x|) = " << fabs(math_num1) <<endl;
+    cout << "floor([x]) = " << floor(math_num1) <<"\n\n";
+
+    cout << "\n----------------------C++数组----------------------"<<endl;  
+    /*C++数组*/
+    cout << "\n一维数组以及基本应用" << endl;
+    int numbers_height[] = {170 , 180 , 173 , 168 , 169 , 183 , 170};
+    int numbers_weight[7] = {70 , 69 , 68 , 59 , 60 ,61 ,64};
+    int ZhangSan_height = numbers_height[5];
+    int LiSi_weight = numbers_weight[3];
+    cout << "张三的身高是：" << ZhangSan_height << endl;
+    cout << "李四的体重是：" << LiSi_weight << endl;
+    
+    cout << "\n多维数组以及基本应用" << endl;
+    int seat_index[3][4] = {
+        {1,2,3,4},
+        {5,6,7,8},
+        {9,10,11,12}
+    };
+    for(int i = 0; i < 3 ; i++){
+        for(int j = 0; j < 4 ; j++){
+            cout << "座位" << seat_index[i][j] << " ";
+        }
+        cout<< "\n";
+    }
+    
+    /*C风格字符串*/
+    cout << "\n----------------------C风格字符串基本操作----------------------"<<endl;
+    cout << "C风格的字符串起源于 C 语言，并在 C++ 中继续得到支持。\n\
+字符串实际上是使用 null 字符以及\\0\
+终止符的一维字符数组。\n\
+因此，一个以 null 结尾的字符串，包含了组成字符串的字符。\n\n";
+    char single_site[4] = {'C','A','I','\0'};
+    char string_site[] = {"'STUDY"};
+    cout << "C++会自动在末尾补null字符，即\\0字符"<<endl;
+    cout << single_site << endl;
+    cout << string_site << "\n";
+    
+    char str_temp[10] = {0};
+    strcpy(str_temp,single_site);
+    cout << "strcpy(s2->s1): " << str_temp << endl;
+    cout << "strcat(s1+s2) : " << strcat(single_site,string_site) << endl;
+    int str_len = strlen(single_site);
+    cout << "strlen(s1) : " << str_len << endl;
     
     
+    /*C++string类型字符串*/
+    cout << "\n----------------------C++风格字符串基本操作----------------------"<<endl;   
+    string string_str1 = "CAI'";
+    string string_str2 = "STUDY";
+    
+    string string_temp = string_str1;
+    cout << "str3 = str1 --> str3 : " << string_temp << endl;
+    
+    string_temp = string_str1 + string_str2;
+    cout << "str3 = str1 + str3 --> str3 : " << string_temp << endl;
+    
+    str_len = string_temp.size(); 
+    cout << "str3.size(s1+s2) ---> str3 : " << str_len << endl;
     
     
+    cout << "\n----------------------C++指针----------------------"<<endl;  
+    cout << "变量地址的输出打印" << endl;
+    int var_act1;
+    char var_act2[10];
+    cout << "int act1的变量地址: " << &var_act1 << endl;
+    cout << "cahr[10] act2的变量地址: " << &var_act2 << endl;
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    //C++中使用指针
+    int* int_pointer;
+    int Ptest = 1;
+    int_pointer = &Ptest;
     
     
     
     
     return 0;
+}
+
+int min(int num1, int num2){
+    int result = NULL;
+    if(num1 < num2){
+        result = num1;
+    }else{
+        result = num2;
+    }
+    return result;
 }
