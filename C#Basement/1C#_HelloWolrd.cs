@@ -1,57 +1,49 @@
-﻿/*本篇将用代码文件的方式带领学习C#*/
-/*您也可以参考配套的MD文档进行概念性学习*/
-/*新人搭建C#环境时通常用的是VS.NET
- 建议关闭代码补齐，即copilot补齐，以及CodeLens
- 从而获得纯粹的代码学习环境*/
-
-
-//基本语法结构与Hello World
-//C#可以包含以下部分：
-/*
-命名空间声明
-一个Class
-Class属性
-Class方法
-Main方法
-语句和表达式
-注释
- */
-//C#的文件后缀统一是.cs
+//=========================================================
+// 第02章-C#环境搭建
+//=========================================================
+//如果你用文本阅读器发现你并没有搭建好C#环境，您可以跟随后面的注释解说进行搭建
+//本章告诉你如何准备C#的环境，并手动尝试第一次编译运行。
+//下面这个程序本身很简单，重点在注释里说明的"环境"与"编译"。
 
 using System;
-//using用于包含System命名空间，一个程序可以有很多个using
 
-namespace HelloWorldApplication
-//namsepace声明：一个namsepace应当包含一系列的class
+class Chapter02Environment
 {
-    //名称为HelloWorld的class，里面包含了他的方法Main和类的行为Console.WriteLine
-    class HelloWorld
-    {   
-        //Main方法：C#程序的入口
-        //static:静态方法，不需要创建类就能直接用
-        //string[] args : 这是命令行参数数组，运行程序的时候可以通过命令行传参
-        //如果你不加上string[] args，那么就无法向主函数传入参数了
-        static void Main(string[] args)
-        {
-            //Console即控制台，WriteLine就是打印一行的意思，因此这里就不需要换行了
-            Console.WriteLine("Hello World");
-            //针对VS.NET用户：由于VS.NET编译运行后会立马关闭控制台，这里加一个readyKEY用于等待按键操作防止闪关
-            Console.ReadKey();
-        }
+    //所有的C#代码，我们都建议将括号按照这种方式书写，否则错行括号会看起来很乱
+    static void Main()
+    {
+        Console.WriteLine("第二章：C#环境搭建");
+        Console.ReadKey();
     }
 }
 
-
 /*
-相信看到上面的代码，你并不会很理解C#的结构为什么如此独特，与C/C++/Python甚至Java都不同
-为了理解它，首先，你需要知道C#是一门完全面向对象设计的语言，在C#中，对象化的设计理念处处存在：
-所有的代码必须属于某个类(class)或结构体(struct)当中，甚至是主函数Main这个一切程序的入口点，
-也必须要定义在一个类的内部。
-这样，C#就没有全局这个概念了，所有的行为都被封装在一个类型中，这样既便于管理，由能够统一，
-甚至可以避免全局下的命名冲突。
-在这里，你可以把namspace理解为一个项目总文件夹，在这个文件夹下，不同的类/结构体都是一个小型
-文件夹，在这里只装他们自己的东西，有的可以给别人看或者用，有的私密不分享出去，这样结构就非
-常清晰了。
-当然，你可以不写namespace，直接让所有的东西在外面跑，这个叫做顶级语句Top-Level statements，
-这就可以如同一个脚本一样书写代码了。这个后续会讲到
- */
+【选择开发环境（二选一即可）】
+方案 A：使用 Visual Studio（VS.NET，Windows 上的首选）
+  1. 到微软官网下载 "Visual Studio Community"（免费）；
+  2. 安装时勾选 ".NET 桌面开发" 工作负载；
+  3. 新建项目 → 选择 "控制台应用" → 即可开始写 C# 代码。
+  · 提示：学习阶段建议关闭代码补齐(IntelliCode/Copilot)和 CodeLens，以获得纯学习体验。
+
+方案 B：使用 .NET SDK + VS Code（跨平台、轻量）
+  1. 到微软官网下载并安装 ".NET SDK"（安装后自带 dotnet 命令行）；
+  2. 安装 VS Code 以及 "C# Dev Kit" 扩展；
+  3. 命令行进入任意空目录，执行：
+        dotnet new console     （生成一个控制台项目）
+        dotnet run             （编译并运行）
+
+【一个 C# 程序从源码到运行，发生了什么？】
+  1. 你写好的.cs文件是"源代码"；
+  2. 通过编译器（csc 或 dotnet build）把它编译成"中间语言(IL)"，打包成程序集(exe/dll)；
+  3. .NET 运行时(CLR)加载并执行这个程序集。
+  这与 C/C++ 直接编译成"机器码"不同——C# 是"编译 + 运行时执行"两步。
+
+【手动编译一个单文件（了解即可）】
+  如果你已经装了 .NET SDK，可以不用 Visual Studio，直接用命令行：
+    新建一个 .cs 文件（比如 Hello.cs），然后执行：
+        csc Hello.cs        （用 C# 编译器编译，生成 Hello.exe）
+        Hello.exe           （运行）
+  或直接：
+        dotnet run
+  ※ 本课程后续所有 .cs 文件都可以放进一个控制台项目里运行，或复制内容到在线工具测试。
+*/
