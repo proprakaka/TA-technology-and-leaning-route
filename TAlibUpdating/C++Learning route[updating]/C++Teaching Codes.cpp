@@ -1,35 +1,44 @@
-//C++±ê×¼ÊäÈëÊä³öÁ÷Í·ÎÄ¼ş
+//C++æ ‡å‡†åº“ä¸­çš„å¤´æ–‡ä»¶
+//C++ç¨‹åºè‡³å°‘åŒ…å«ä¸€ä¸ªå¤´æ–‡ä»¶ï¼Œé€šå¸¸æ˜¯iostreamå¤´æ–‡ä»¶ï¼Œä½†å¹¶ä¸ä¸€å®šæ˜¯è¿™æ ·
+//ä¸åŒæƒ…å†µä¸‹è¦æ±‚ä¸åŒï¼Œè‡ªç„¶å¤´æ–‡ä»¶ä¹Ÿä¸åŒï¼Œä½†è¯­æ³•ç»“æ„å’Œä»£ç é£æ ¼æ˜¯ç›¸åŒçš„
 #include<iostream>
 
-//C++¹Ì¶¨Î»ÊıĞ¡Êıµã±íÊ¾
+//C++å›ºå®šä½å°æ•°çš„è¡¨ç¤ºå¿…é¡»è¦åŒ…å«çš„å¤´æ–‡ä»¶
 #include<iomanip>
 
-//C++Ëæ»úÊırandÓësrandÖÖ×Ó
+//C++çš„randå’Œsrandå‡½æ•°å¿…é¡»åŒ…å«çš„å¤´æ–‡ä»¶ï¼Œç”¨äºç”Ÿæˆéšæœºæ•°
 #include<cstdlib>
 #include<ctime>
 
-//C++µÄÊıÑ§ÔËËãÍ·ÎÄ¼ş
+//C++çš„æ•°å­¦å‡½æ•°å¤´æ–‡ä»¶ï¼Œé€šè¿‡å®ƒå¯ä»¥è°ƒç”¨ä¸€éƒ¨åˆ†å¸¸è§çš„æ•°å­¦è¿ç®—
 #include<cmath>
 
-//C++µÄ×Ö·û´®²Ù×÷Í·ÎÄ¼ş
+//C++çš„å­—ç¬¦ä¸²å‡½æ•°å¤´æ–‡ä»¶ï¼Œé€šè¿‡å®ƒå¯ä»¥è°ƒç”¨ä¸€éƒ¨åˆ†å¸¸è§çš„å­—ç¬¦ä¸²æ“ä½œå‡½æ•°
 #include<cstring>
 
-//C++µÄstring²Ù×÷Í·ÎÄ¼ş
+//C++çš„stringç±»å¤´æ–‡ä»¶ï¼Œè°ƒç”¨å®ƒå°±èƒ½ä½¿ç”¨stringç±»å‹
 #include<string>
 
-//ÃüÃû¿Õ¼ä
+/*
+å‘½åç©ºé—´
+C++ä¸­çš„æ–°å‹æ¦‚å¿µï¼Œæ˜¯C++ä¸­ç”¨äºç»„ç»‡ä»£ç çš„ä¸€ç§æœºåˆ¶ã€‚
+å®ƒå…è®¸å°†æ ‡è¯†ç¬¦ï¼ˆå¦‚å˜é‡ã€å‡½æ•°ã€ç±»ç­‰ï¼‰åˆ†ç»„åˆ°ä¸åŒçš„å‘½åç©ºé—´ä¸­ï¼Œä»¥é¿å…å‘½åå†²çªã€‚
+é€šè¿‡ä½¿ç”¨å‘½åç©ºé—´ï¼Œå¯ä»¥åœ¨ä¸åŒçš„ä»£ç æ¨¡å—ä¸­ä½¿ç”¨ç›¸åŒçš„æ ‡è¯†ç¬¦è€Œä¸ä¼šäº§ç”Ÿå†²çªï¼Œä»è€Œæé«˜ä»£ç çš„å¯è¯»æ€§å’Œå¯ç»´æŠ¤æ€§ã€‚
+æ¯”å¦‚ï¼Œåœ¨æˆ‘ä»¬æ²¡ä½¿ç”¨è¿™æ¡æŒ‡ä»¤æ—¶ï¼Œæ¯æ¬¡è°ƒç”¨stdç©ºé—´ä¸‹çš„æŒ‡ä»¤æ—¶å°±å¿…é¡»è¦åŠ ä¸Šstd::ï¼Œä»è€Œä¸å…¶ä»–ç©ºé—´åŒºåˆ†å¼€æ¥ 
+*/
 using namespace std;
 
-//¶¨Òå³£Á¿-ºê¶¨Òå·½·¨
+//å®šä¹‰å¸¸é‡-å®å®šä¹‰æ–¹å¼
 #define pi 3.14
 
-/*ÕâÊÇ×¢ÊÍÓï·¨µÄ
-µÚ¶şÖÖÊéĞ´·½Ê½*/
+/*å¤šè¡Œæ³¨é‡Šè¯­æ³•ï¼š
+ç¬¬äºŒç§å†™æ³•*/
 
-//È«¾Ö±äÁ¿¶¨Òå
+//å…¨å±€å˜é‡çš„å®šä¹‰
+//NULL ç©ºå€¼ï¼Œé€šå¸¸ç”¨äºåˆå§‹åŒ–ä¸éœ€è¦èµ‹å€¼çš„å˜é‡ï¼Œæˆ–è€…ç”¨äºæŒ‡é’ˆçš„åˆå§‹åŒ–
 int Global_Variables = NULL;
 
-//Ò»°ãº¯ÊıµÄ±ê×¼ĞÎÊ½
+//ä¸€èˆ¬å‡½æ•°çš„æ ‡å‡†å½¢å¼
 int max(int num1 , int num2){
     int result = NULL;
     if(num1 > num2){
@@ -39,18 +48,20 @@ int max(int num1 , int num2){
     }
     return result;
 }
-//º¯ÊıÉùÃ÷£º¿ÉÒÔÓÃÓÚÔÚÆäËûµØ·½µ¥¶À¶¨Òå£º¼ûreturn 0 ºó
+//å‡½æ•°çš„å£°æ˜ï¼ˆå‰ç½®å£°æ˜ï¼‰ï¼šæ­¤å¤„åªå£°æ˜ min çš„åŸå‹ï¼Œå‡½æ•°ä½“å®šä¹‰åœ¨æ–‡ä»¶æœ«å°¾ï¼›main å‡½æ•°ç»“æŸé€šå¸¸éœ€è¦ç”¨returnè¿”å›0å€¼è¡¨ç¤ºç¨‹åºæ­£å¸¸ç»“æŸ
 int min(int num1 , int num2);
 
 
-//Èô±äÁ¿Ã»ÓĞ±»ÎÒÃÇµ÷ÓÃ»ò³õÊ¼»¯£¬±àÒëÆ÷¾Í»áµ¯³ö¾¯¸æ¡¾ºìÉ«²¨ÀËÏß¡¿
+//å‡½æ•°åªå£°æ˜è€Œæœªå®šä¹‰æ—¶ï¼Œç›´æ¥è°ƒç”¨ä¼šå¼¹å‡ºè­¦å‘Šï¼ˆçº¢è‰²æ³¢æµªçº¿ï¼‰
 int main(){
-    //Ô¤ÖÆºê
+    
+    //C++å¸¸è§çš„é¢„å¤„ç†å®
     cout << "__DATE__:" << __DATE__ << endl;                             
     cout << "__TIME__:" << __TIME__ << endl;
     cout << "__FILE__:" << __FILE__ << endl;
     cout << "__LINE__:" << __LINE__ << "\n\n";
-    //³£¼ûÄÚÖÃÀàĞÍ
+    
+    //C++çš„åŸºæœ¬æ•°æ®ç±»å‹
     int type_int = 1;
     float type_float = 0.1F;
     double type_double = pi;
@@ -59,7 +70,7 @@ int main(){
     wchar_t type_wchart = L'C';
     auto type_auto = type_int;
     
-    //³£¼ûĞŞÊÎ·û
+    //C++çš„ç±»å‹ä¿®é¥°ç¬¦
     signed type_signed_int = -1;
     unsigned type_unsigned_int = 1;
     short type_short_int_max = 32767;
@@ -70,7 +81,7 @@ int main(){
     long long type_LL_int_min = -9223372036854775808;
     const int type_const_int = 123;
    
-    //»ù±¾Óï·¨
+    //è¾“å‡ºè¯­æ³•ç›¸å…³
     cout << "Hello World but changed by endl"<< endl;
     cout << "Hello World but chaned by \\n \n";
     cout << "This is a long \
@@ -79,16 +90,16 @@ string used \'\\\' in the sentence\n";
     cout << "type_int = " << type_int << endl;
     cout << "type_float = " << type_float << endl;
     
-    //C++µÄĞ¡ÊıÏÔÊ¾Ä£Ê½ÊÇ×Ô¶¯Ê¡ÂÔĞ¡ÊıµãºóÄ©Î²0£¬ÕâÒ²¾ÍĞèÒªÎÒÃÇ¹Ì¶¨Î»Êı±íÊ¾
-    //fixedºÍsetprecision¶¼À´×ÔÓÚiomanip£¬fixedÓÃÓÚ¹Ì¶¨ÏÔÊ¾Î»Êı£¬¶øsetprecisionÓÃÓÚ´«ÈëÏÔÊ¾¶àÉÙÎ»
-    //Èç¹ûÎÒÃÇ²»ĞèÒª¹Ì¶¨Î»Êı£¬¾Í²»ĞèÒªÓÃfixed
+    //C++çš„å°æ•°æ˜¾ç¤ºæ¨¡å¼ä¼šè‡ªåŠ¨çœç•¥å°æ•°æœ«å°¾çš„0ï¼Œä½†è¿™é‡Œéœ€è¦å›ºå®šä½æ•°æ˜¾ç¤º
+    //fixedå’Œsetprecisionæ¥è‡ªiomanipï¼šfixedç”¨äºå›ºå®šæ˜¾ç¤ºä½æ•°ï¼Œsetprecisionç”¨äºè®¾ç½®æ˜¾ç¤ºçš„ä½æ•°
+    //å¦‚æœä¸éœ€è¦å›ºå®šä½æ•°ï¼Œå°±ä¸éœ€è¦ä½¿ç”¨fixed
     cout << "type_double = " << fixed <<setprecision(10) << type_double << endl;
     cout << "type_char = " << type_char << endl;
     
-    //boolalphaÊÇiostreamÖĞµÄÒ»¸ö±ê×¼ÊäÈëÊä³ö²Ù×÷·û£¬¿ÉÒÔÈÃboolÀàĞÍµÄ±äÁ¿Êä³ö×Ö·û¶ø·ÇÊı×Ö
+    //boolalphaæ˜¯iostreamä¸­çš„ä¸€ä¸ªæ ‡å‡†æ§åˆ¶ç¬¦ï¼Œç”¨æ¥æŠŠboolç±»å‹çš„å˜é‡å€¼è½¬æ¢æˆå­—ç¬¦ä¸²å½¢å¼è¾“å‡º
     cout << "type_bool = " << boolalpha << type_bool << endl;
     
-    //ÕâÒ»¶ÎÓÃµ½static_castÇ¿ÖÆ×ª»»£¬½«wchar_tÀàĞÍµÄÊıÖµ×ª»»³ÉÕûÊıĞÎÊ½Êä³ö
+    //ç”¨ä¸€ä¸ªstatic_castå¼ºåˆ¶è½¬æ¢ï¼ŒæŠŠwchar_tç±»å‹çš„æ•°å€¼è½¬æ¢æˆæ•´æ•°å½¢å¼è¾“å‡º
     cout << "type_wchart (as int) = " << static_cast<int>(type_wchart) << endl;
    
     cout << "type_signed_int = " << type_signed_int << endl;
@@ -101,17 +112,17 @@ string used \'\\\' in the sentence\n";
     cout << "type_LL_int_min = " << type_LL_int_min << endl;
     cout << "type_const_int = " << type_const_int << endl;
    
-    //sizeofµÚÒ»¸öÓ¦ÓÃ£º»ñÈ¡»ù±¾Êı¾İÀàĞÍµÄ´óĞ¡
-    cout << "char : " << sizeof(char) << "×Ö½Ú" << endl;
-    cout << "int : " << sizeof(int) << "×Ö½Ú" << endl;
-    cout << "unsigned short :" << sizeof(unsigned short) << "×Ö½Ú" << endl;
-    cout << "wchar_t :" << sizeof(wchar_t) << "×Ö½Ú" << endl;
+    //sizeofçš„ä¸€ä¸ªåº”ç”¨ï¼Œè·å–ä¸åŒæ•°æ®ç±»å‹çš„å¤§å°
+    cout << "char : " << sizeof(char) << "å­—èŠ‚" << endl;
+    cout << "int : " << sizeof(int) << "å­—èŠ‚" << endl;
+    cout << "unsigned short :" << sizeof(unsigned short) << "å­—èŠ‚" << endl;
+    cout << "wchar_t :" << sizeof(wchar_t) << "å­—èŠ‚" << endl;
    
-    //typedef»ù±¾Ó¦ÓÃ
+    //typedefçš„åº”ç”¨
     typedef int zheng;
     zheng type_int_zheng = 123;
    
-    //¼òµ¥µÄenmuÃ¶¾ÙÀàĞÍ´´½¨
+    //ç®€å•çš„enumæšä¸¾çš„ä½¿ç”¨
     enum color {red , green = 100 , blue} color_red , color_green , color_blue;
     color mycolor = red;
     cout << "mycolor="<< mycolor << endl;
@@ -120,64 +131,64 @@ string used \'\\\' in the sentence\n";
     cout << "color_blue=" << color_blue << endl;
     
     
-    /*ÏÂÃæÊÇÀàĞÍ×ª»»£¬Ö»Õ¹Ê¾ÉÏÊöÑ§µ½µÄÖªÊ¶Ë®Æ½*/
-    //1.¾²Ì¬×ª»»
+    /*æ¥ä¸‹æ¥æ˜¯ç±»å‹è½¬æ¢ï¼Œåªå±•ç¤ºå½“å‰æ•°å­¦çŸ¥è¯†æ°´å¹³*/
+    //1.é™æ€è½¬æ¢
     int turn_int =  10;
     float float_int =  static_cast<float>(turn_int);
     cout << "Aimturn number is "<< turn_int <<endl;
     cout << "Turned number is " << fixed <<setprecision(2) << float_int <<endl;
-    //2.³£Á¿×ª»»
+    //2.å¸¸é‡è½¬æ¢
     const int const_switch_num = 10;
     int& r_const_switch_num = const_cast<int&>(const_switch_num);
     cout << "Unswitched const number : " << const_switch_num << endl;
     cout << "Switched const number [to int and +1] : " << const_switch_num +1 << endl;
-    //3.ÖØĞÂ½âÊÍ×ª»»
+    //3.é‡æ–°è§£é‡Šè½¬æ¢
     int unreinterpret_num = 10;
     float reinterpret_num_F = reinterpret_cast<float&>(unreinterpret_num);
     cout << "unredefined number : " << unreinterpret_num << endl;
     cout << "redefined number (to float) : " << fixed << setprecision(2) << reinterpret_num_F << endl; 
-    cout << "½âÊÍ: ²»Í¬ÓÚstatic_castÇ¿ÖÆ×ª»»£¬¸Ã×ª»»»á´ÓÍ·°´ÕÕfloat·½Ê½¶ÁÈ¡int´æ´¢µÄ10£¬×îºó¶ÁÈ¡µ½¶ş½øÖÆÊÇ0x0000000A£¬Ò²¾ÍÊÇ0"<< "\n\n";
+    cout << "è¯´æ˜: ä¸åŒäºstatic_castçš„å¸¸è§„è½¬æ¢ï¼Œé‡æ–°è§£é‡Šè½¬æ¢æ˜¯ç”¨floatæ ¼å¼è¯»å–intå­˜å‚¨çš„10ï¼Œå®é™…è¯»å–çš„å†…å®¹æ˜¯0x0000000Aï¼Œä¹Ÿå°±æ˜¯0"<< "\n\n";
     
     
-    /*ÒÔÏÂÊÇ³ÌĞòÁ÷³Ì½á¹¹µÄÑ¡Ôñ½á¹¹Æª*/
-    //1.ifÓï¾ä
-    cout << "\nifÓï¾ä½á¹û" <<endl;
+    /*æ¥ä¸‹æ¥æ˜¯å¸¸ç”¨çš„ç¨‹åºç»“æ„-é€‰æ‹©ç»“æ„ç¯‡*/
+    //1.ifè¯­å¥
+    cout << "\nifè¯­å¥çš„ç»“æœ" <<endl;
     srand(time(0));
     int if_sentence_num1 = rand();
     int if_sentence_num2 = rand();
     if(1){
-        cout << "µÚÒ»¸öÊı"<< if_sentence_num1 <<"ºÍµÚ¶ş¸öÊı" << if_sentence_num2 <<endl;
+        cout << "ç¬¬ä¸€ä¸ªæ•°"<< if_sentence_num1 <<"å’Œç¬¬äºŒä¸ªæ•°" << if_sentence_num2 <<endl;
     }
-    //2.if-elseÓï¾ä
-    cout <<"\nif-elseÓï¾ä½á¹û"<<endl;
+    //2.if-elseè¯­å¥
+    cout <<"\nif-elseè¯­å¥çš„ç»“æœ"<<endl;
     if(if_sentence_num1 > 10000){
-        cout << "µÚÒ»¸öÊı" << if_sentence_num1 <<"´óÓÚ10000" << endl;
+        cout << "ç¬¬ä¸€ä¸ªæ•°" << if_sentence_num1 <<"å¤§äº10000" << endl;
     }else{
-        cout << "µÚÒ»¸öÊı" << if_sentence_num1 <<"Ğ¡ÓÚ»òµÈÓÚ10000" << endl;
+        cout << "ç¬¬ä¸€ä¸ªæ•°" << if_sentence_num1 <<"å°äºæˆ–ç­‰äº10000" << endl;
     }
-    //3.else ifÓï¾ä
-    cout <<"\nelse ifÓï¾ä½á¹û"<<endl;
+    //3.else ifè¯­å¥
+    cout <<"\nelse ifè¯­å¥çš„ç»“æœ"<<endl;
     if(if_sentence_num1 > if_sentence_num2){
-        cout << "µÚÒ»¸öÊı"<< if_sentence_num1 <<"´óÓÚµÚ¶ş¸öÊı" << if_sentence_num2 <<endl;
+        cout << "ç¬¬ä¸€ä¸ªæ•°"<< if_sentence_num1 <<"å¤§äºç¬¬äºŒä¸ªæ•°" << if_sentence_num2 <<endl;
     }else if (if_sentence_num1 < 10000) {
-        cout << "µÚÒ»¸öÊı"<< if_sentence_num1 <<"Ğ¡ÓÚ10000,Òò´ËĞ¡ÓÚµÚ¶ş¸öÊı"<<if_sentence_num2<<endl;
+        cout << "ç¬¬ä¸€ä¸ªæ•°"<< if_sentence_num1 <<"å°äº10000ï¼Œé‚£ä¹ˆä¸€å®šå°äºç¬¬äºŒä¸ªæ•°"<<if_sentence_num2<<endl;
     }else{
-        cout << "µÚÒ»¸öÊı"<< if_sentence_num1 <<"´óÓÚµÈÓÚÒ»Íòµ«È´Ğ¡ÓÚµÚ¶ş¸öÊı"<<if_sentence_num2<<endl;
+        cout << "ç¬¬ä¸€ä¸ªæ•°"<< if_sentence_num1 <<"ä¸å¤§äºç¬¬ä¸€ä¸ªå´å°äºç¬¬äºŒä¸ªæ•°"<<if_sentence_num2<<endl;
     }
-    //4.ifµÄÇ¶Ì×
-    cout <<"\nifÇ¶Ì×Óï¾äµÄ½á¹û"<<endl;
+    //4.ifçš„åµŒå¥—
+    cout <<"\nifåµŒå¥—çš„ç»“æœ"<<endl;
     if(if_sentence_num1 > if_sentence_num2){
         if(if_sentence_num1 > 10000 || if_sentence_num2 < 10000){
-            cout<<"µÚÒ»¸öÊı"<<if_sentence_num1<<"´óÓÚÒ»ÍòÇÒµÚ¶ş¸öÊı"<<if_sentence_num2<<"Ğ¡ÓÚÒ»Íò"<<endl;
+            cout<<"ç¬¬ä¸€ä¸ªæ•°"<<if_sentence_num1<<"å¤§äºä¸€ä¸‡ï¼Œç¬¬äºŒä¸ªæ•°"<<if_sentence_num2<<"å°äºä¸€ä¸‡"<<endl;
         }
-        cout<<"µÚÒ»¸öÊı"<<if_sentence_num1<<"´óÓÚµÚ¶ş¸öÊı"<<if_sentence_num2<<endl;
+        cout<<"ç¬¬ä¸€ä¸ªæ•°"<<if_sentence_num1<<"å¤§äºç¬¬äºŒä¸ªæ•°"<<if_sentence_num2<<endl;
     }else if (if_sentence_num1 = if_sentence_num2){
-        cout<<"ÏàµÈ£¬¶¼ÊÇ"<<if_sentence_num1<<endl;
+        cout<<"ç›¸ç­‰ï¼Œç­‰äº"<<if_sentence_num1<<endl;
     }else{
-        cout<<"µÚÒ»¸ö"<<if_sentence_num1<<"Ğ¡ÓÚµÚ¶ş¸öÊı"<<if_sentence_num2<<endl;
+        cout<<"ç¬¬ä¸€ä¸ª"<<if_sentence_num1<<"å°äºç¬¬äºŒä¸ªæ•°"<<if_sentence_num2<<endl;
     }
-    //5.switchÓï¾ä
-    cout <<"\nswitchÓï¾äµÄ½á¹û"<<endl;
+    //5.switchè¯­å¥
+    cout <<"\nswitchè¯­å¥çš„ç»“æœ"<<endl;
     int switch_day = rand()%10;
     switch(switch_day){
         case 1 :
@@ -204,8 +215,8 @@ string used \'\\\' in the sentence\n";
         default :
             cout<<switch_day<<" is invalid day"<<endl;
     }
-    //6.switchÇ¶Ì×
-    cout<<"\nswitchÇ¶Ì×½á¹û"<<endl;
+    //6.switchåµŒå¥—
+    cout<<"\nswitchåµŒå¥—ç»“æœ"<<endl;
     int switch_fixed_num1 = 100;
     int switch_fixed_num2 = 200;
     switch(switch_fixed_num1){
@@ -218,38 +229,38 @@ string used \'\\\' in the sentence\n";
             }
         break;
     }
-    //7.ÈıÄ¿ÔËËã
-    cout<<"\nÈıÄ¿ÔËËã·û"<<endl;
+    //7.ä¸‰ç›®è¿ç®—
+    cout<<"\nä¸‰ç›®è¿ç®—çš„ç»“æœ"<<endl;
     int switch_fixed_num3 = if_sentence_num1 > if_sentence_num2 ? if_sentence_num1 : if_sentence_num2;
-    cout<<"ÈıÄ¿ÔËËã±È½ÏµÚÒ»¸öÊıºÍµÚ¶ş¸öÊıµÃ´óÊı:"<<switch_fixed_num3<<endl;
+    cout<<"ä¸‰ç›®è¿ç®—æ¯”è¾ƒç¬¬ä¸€ä¸ªæ•°å’Œç¬¬äºŒä¸ªæ•°ï¼Œè¾ƒå¤§çš„ä¸º:"<<switch_fixed_num3<<endl;
     
     
-    /*ÒÔÏÂÊÇ³ÌĞòÁ÷³Ì½á¹¹µÄÑ­»·½á¹¹Æª*/
-    //1.whileÑ­»· 
-    cout<<"\nwhileÑ­»·°¸Àı½á¹û"<<endl;
-    cout<<"´òÓ¡¶şÊ®´ÎHello World"<<endl;
+    /*æ¥ä¸‹æ¥æ˜¯å¸¸ç”¨çš„ç¨‹åºç»“æ„-å¾ªç¯ç»“æ„ç¯‡*/
+    //1.whileå¾ªç¯ 
+    cout<<"\nwhileå¾ªç¯çš„è¾“å‡ºç»“æœ"<<endl;
+    cout<<"æ‰“å°äºŒåä¸ªHello World"<<endl;
     int while_count = 1;
     while(while_count <= 20){
-        cout<<"µÚ"<<while_count<<"´Î"<<"Hello World"<<endl;
+        cout<<"ç¬¬"<<while_count<<"ä¸ª"<<"Hello World"<<endl;
         while_count ++;
     }
-    //2.forÑ­»·
-    cout<<"\nforÑ­»·°¸Àı½á¹û"<<endl;
-    cout<<"µ¹Êı10ÏÂ"<<endl;
+    //2.forå¾ªç¯
+    cout<<"\nforå¾ªç¯çš„è¾“å‡ºç»“æœ"<<endl;
+    cout<<"å€’æ•°10ä¸ªæ•°"<<endl;
     for(int i = 0 ; i < 10 ; i++){
         cout<<10-i<<endl;
     }
-    //3.do whileÑ­»·
-    cout<<"\ndo whileÑ­»·°¸Àı½á¹û"<<endl;
-    cout<<"ÕıÊı10ÏÂ"<<endl;
+    //3.do whileå¾ªç¯
+    cout<<"\ndo whileå¾ªç¯çš„è¾“å‡ºç»“æœ"<<endl;
+    cout<<"æ‰“å°10ä¸ªæ•°"<<endl;
     int dowhile_count = 1;
     do{
         cout<<dowhile_count<<endl;
         dowhile_count ++;
     }while(dowhile_count <= 10);
-    //4.Ç¶Ì×Ñ­»·
-    cout<<"\nÇ¶Ì×Ñ­»·°¸Àı½á¹û"<<endl;
-    cout<<"\nÊÔ³ı·¨É¸Ñ¡Ò»°ÙÒÔÄÚµÄËØÊı"<<endl;
+    //4.åµŒå¥—å¾ªç¯
+    cout<<"\nåµŒå¥—å¾ªç¯çš„è¾“å‡ºç»“æœ"<<endl;
+    cout<<"\nç”¨åµŒå¥—å¾ªç¯ç­›é€‰ä¸€ç™¾ä»¥å†…çš„ç´ æ•°"<<endl;
     int i,j;
     for(i = 2; i < 100 ; i++){
         for(j = 2 ; j <= i/j ; j++){
@@ -258,23 +269,23 @@ string used \'\\\' in the sentence\n";
             }
         }
         if(j>(i/j)){
-            cout << i << "ÊÇËØÊı\n";
+            cout << i << "æ˜¯ç´ æ•°\n";
         }
     }
-    //5.continueÓï¾ä
-    cout<<"\ncontinueÓëbreakÔÚÒ»ÖÖÎ»ÖÃ£¬µ«×÷ÓÃÊÇÖØĞÂ¿ªÊ¼µ±Ç°Ñ­»·¶ø²»ÊÇÖÕÖ¹"<<endl;
+    //5.continueè¯­å¥
+    cout<<"\ncontinueä¸breakçš„å”¯ä¸€åŒºåˆ«ï¼šcontinueä¼šé‡æ–°å¼€å§‹å½“å‰å¾ªç¯è€Œä¸ä¼šç»ˆæ­¢"<<endl;
     
-    /*ÒÔÏÂÊÇC++µÄº¯Êı*/
-    cout<< "\nC++Ò»°ãº¯ÊıĞÎÊ½-±È½ÏÊıµÄ´óĞ¡" << endl;
-    //ÓÉÓÚC/C++²»ÔÊĞíÔÚº¯ÊıÄÚ²¿¶¨ÒåÁíÒ»¸öº¯Êı£¬¼´Ç¶Ì×º¯ÊıÊÇ·Ç±ê×¼µÄ£¬¹Ê¶ø·ÅÖÃÔÚmainº¯ÊıÍâ
+    /*æ¥ä¸‹æ¥æ˜¯C++çš„å‡½æ•°*/
+    cout<< "\nC++ä¸€èˆ¬å‡½æ•°å½¢å¼-æ¯”è¾ƒä¸¤ä¸ªæ•°çš„å¤§å°" << endl;
+    //åœ¨C/C++ä¸­å‡½æ•°å†…éƒ¨ä¸èƒ½å†å®šä¹‰å¦ä¸€ä¸ªå‡½æ•°ï¼ˆå‡½æ•°çš„åµŒå¥—å®šä¹‰æ˜¯éæ ‡å‡†çš„ï¼‰ï¼Œæ‰€ä»¥å¿…é¡»å®šä¹‰åœ¨mainå‡½æ•°ä¹‹å¤–
     int Compare_num1 = rand();
     int Compare_num2 = rand();
-    cout<< "Á½Êı±È½Ï½á¹û:"<< max(Compare_num1,Compare_num2)<<endl;
-    cout<< "Á½Êø±È½Ï½á¹û:"<< min(Compare_num1,Compare_num2)<<"\n\n";
+    cout<< "ä¸¤ä¸ªæ•°çš„æ¯”è¾ƒç»“æœ:"<< max(Compare_num1,Compare_num2)<<endl;
+    cout<< "ä¸¤ä¸ªæ•°çš„æ¯”è¾ƒç»“æœ:"<< min(Compare_num1,Compare_num2)<<"\n\n";
     
-    cout << "\n----------------------C++³£¼ûÊıÑ§ÔªËØ----------------------"<<endl;  
-    /*C++³£¼ûµÄÊıÑ§ÔËËã*/
-    cout << "\nÒÔÏÂÊÇ<cmat>³£¼ûÊıÑ§ÔËËã"<<endl;
+    cout << "\n----------------------C++å¸¸ç”¨æ•°å­¦å…ƒç´ ----------------------"<<endl;  
+    /*C++å¸¸ç”¨çš„æ•°å­¦å‡½æ•°*/
+    cout << "\nä½¿ç”¨<cmath>åº“çš„æ•°å­¦å‡½æ•°"<<endl;
     double math_num1 = 14.3;
     double math_num2 = 11.1;
     cout << "num1 = " << math_num1 <<endl;
@@ -289,17 +300,17 @@ string used \'\\\' in the sentence\n";
     cout << "fabs(|x|) = " << fabs(math_num1) <<endl;
     cout << "floor([x]) = " << floor(math_num1) <<"\n\n";
 
-    cout << "\n----------------------C++Êı×é----------------------"<<endl;  
-    /*C++Êı×é*/
-    cout << "\nÒ»Î¬Êı×éÒÔ¼°»ù±¾Ó¦ÓÃ" << endl;
+    cout << "\n----------------------C++æ•°ç»„----------------------"<<endl;  
+    /*C++æ•°ç»„*/
+    cout << "\nä¸€ç»´æ•°ç»„ä»¥åŠå…¶åº”ç”¨" << endl;
     int numbers_height[] = {170 , 180 , 173 , 168 , 169 , 183 , 170};
     int numbers_weight[7] = {70 , 69 , 68 , 59 , 60 ,61 ,64};
     int ZhangSan_height = numbers_height[5];
     int LiSi_weight = numbers_weight[3];
-    cout << "ÕÅÈıµÄÉí¸ßÊÇ£º" << ZhangSan_height << endl;
-    cout << "ÀîËÄµÄÌåÖØÊÇ£º" << LiSi_weight << endl;
+    cout << "å¼ ä¸‰çš„èº«é«˜æ˜¯ï¼š" << ZhangSan_height << endl;
+    cout << "æå››çš„ä½“é‡æ˜¯ï¼š" << LiSi_weight << endl;
     
-    cout << "\n¶àÎ¬Êı×éÒÔ¼°»ù±¾Ó¦ÓÃ" << endl;
+    cout << "\näºŒç»´æ•°ç»„ä»¥åŠå…¶åº”ç”¨" << endl;
     int seat_index[3][4] = {
         {1,2,3,4},
         {5,6,7,8},
@@ -307,20 +318,20 @@ string used \'\\\' in the sentence\n";
     };
     for(int i = 0; i < 3 ; i++){
         for(int j = 0; j < 4 ; j++){
-            cout << "×ùÎ»" << seat_index[i][j] << " ";
+            cout << "åº§ä½" << seat_index[i][j] << " ";
         }
         cout<< "\n";
     }
     
-    /*C·ç¸ñ×Ö·û´®*/
-    cout << "\n----------------------C·ç¸ñ×Ö·û´®»ù±¾²Ù×÷----------------------"<<endl;
-    cout << "C·ç¸ñµÄ×Ö·û´®ÆğÔ´ÓÚ C ÓïÑÔ£¬²¢ÔÚ C++ ÖĞ¼ÌĞøµÃµ½Ö§³Ö¡£\n\
-×Ö·û´®Êµ¼ÊÉÏÊÇÊ¹ÓÃ null ×Ö·ûÒÔ¼°\\0\
-ÖÕÖ¹·ûµÄÒ»Î¬×Ö·ûÊı×é¡£\n\
-Òò´Ë£¬Ò»¸öÒÔ null ½áÎ²µÄ×Ö·û´®£¬°üº¬ÁË×é³É×Ö·û´®µÄ×Ö·û¡£\n\n";
+    /*Cé£æ ¼å­—ç¬¦ä¸²*/
+    cout << "\n----------------------Cé£æ ¼å­—ç¬¦ä¸²ç›¸å…³æ“ä½œ----------------------"<<endl;
+    cout << "Cé£æ ¼çš„å­—ç¬¦ä¸²æºè‡ª C è¯­è¨€ï¼Œä½†åœ¨ C++ ä¸­ä¾æ—§å¾—åˆ°äº†æ”¯æŒã€‚\n\
+å­—ç¬¦ä¸²å®é™…ä¸Šæ˜¯ä½¿ç”¨ null å­—ç¬¦ä»¥åŠ\\0\
+æ¥ç»ˆæ­¢çš„ä¸€ç»´å­—ç¬¦æ•°ç»„ã€‚\n\
+å› æ­¤ï¼Œä¸€ä¸ªä»¥ null ç»“å°¾çš„å­—ç¬¦ä¸²åŒ…å«äº†ç»„æˆå­—ç¬¦ä¸²çš„å­—ç¬¦\n\n";
     char single_site[4] = {'C','A','I','\0'};
     char string_site[] = {"'STUDY"};
-    cout << "C++»á×Ô¶¯ÔÚÄ©Î²²¹null×Ö·û£¬¼´\\0×Ö·û"<<endl;
+    cout << "C++ä¼šè‡ªåŠ¨åœ¨å­—ç¬¦ä¸²æœ«å°¾åŠ ä¸Š null å­—ç¬¦ï¼Œå³\\0å­—ç¬¦" << endl;
     cout << single_site << endl;
     cout << string_site << "\n";
     
@@ -332,8 +343,8 @@ string used \'\\\' in the sentence\n";
     cout << "strlen(s1) : " << str_len << endl;
     
     
-    /*C++stringÀàĞÍ×Ö·û´®*/
-    cout << "\n----------------------C++·ç¸ñ×Ö·û´®»ù±¾²Ù×÷----------------------"<<endl;   
+    /*C++stringç±»å­—ç¬¦ä¸²*/
+    cout << "\n----------------------C++å­—ç¬¦ä¸²ç›¸å…³æ“ä½œ----------------------"<<endl;   
     string string_str1 = "CAI'";
     string string_str2 = "STUDY";
     
@@ -347,17 +358,108 @@ string used \'\\\' in the sentence\n";
     cout << "str3.size(s1+s2) ---> str3 : " << str_len << endl;
     
     
-    cout << "\n----------------------C++Ö¸Õë----------------------"<<endl;  
-    cout << "±äÁ¿µØÖ·µÄÊä³ö´òÓ¡" << endl;
+    cout << "\n----------------------C++æŒ‡é’ˆ----------------------"<<endl;  
+    cout << "å˜é‡åœ°å€çš„æ‰“å°" << endl;
     int var_act1;
     char var_act2[10];
-    cout << "int act1µÄ±äÁ¿µØÖ·: " << &var_act1 << endl;
-    cout << "cahr[10] act2µÄ±äÁ¿µØÖ·: " << &var_act2 << endl;
+    cout << "int act1çš„å˜é‡åœ°å€: " << &var_act1 << endl;
+    cout << "char[10] act2çš„å˜é‡åœ°å€: " << &var_act2 << endl;
     
-    //C++ÖĞÊ¹ÓÃÖ¸Õë
+    //C++ä¸­æŒ‡é’ˆçš„åŸºæœ¬ä½¿ç”¨
     int* int_pointer;
     int Ptest = 1;
     int_pointer = &Ptest;
+    //æŒ‡é’ˆçš„ç±»å‹ä»£è¡¨äº†å®ƒæŒ‡å‘åœ°å€æ‰€å­˜å‚¨æ•°æ®çš„ç±»å‹
+    /*
+    ä¸Šé¢ç”¨åˆ°int* å†™æ³•ï¼Œä¹Ÿå°±æ˜¯*ç´§é ç±»å‹åçš„å†™æ³•
+    å¸‚é¢ä¸Šå¤§éƒ¨åˆ†æ•™ç¨‹å’Œæ•™æç”¨åˆ°çš„æ˜¯int *å†™æ³•ï¼Œå³*ç´§é å˜é‡åçš„å†™æ³•
+    ä½†å®é™…ä¸Šæ¥è¯´ï¼Œå…¶å®ç”¨ç¬¬ä¸€ç§å†™æ³•æ˜¯æœ€å¥½ç†è§£çš„å†™æ³•ï¼š
+    è¡¨æ˜è¿™æ˜¯ä¸€ä¸ªæŒ‡é’ˆçš„å˜é‡ï¼Œè€Œéå˜é‡æ˜¯æŒ‡é’ˆ
+    å…¶å®ä½ ç”¨å“ªç§å†™éƒ½æ— æ‰€è°“ï¼Œå…³é”®æ˜¯ç†è§£æŒ‡é’ˆçš„æœ¬è´¨
+    */
+    
+    //ç›´æ¥è®¿é—®åœ°å€çš„æ–¹å¼å¯¹Ptestæ“ä½œ
+    *int_pointer = 10;
+    cout << "Ptest : " << Ptest << endl;
+    
+    //NULLæŒ‡é’ˆ/ç©ºæŒ‡é’ˆ
+    //åœ¨å®šä¹‰äº†ä¸€ä¸ªæŒ‡é’ˆä¹‹åï¼Œå¦‚æœæˆ‘ä»¬æ²¡æœ‰ä»€ä¹ˆå¯ä»¥æŒ‡å‘çš„ï¼Œå°±åˆå§‹åŒ–æˆNULLã€è§„èŒƒç¼–ç¨‹ã€‘
+    //åœ¨åé¢éœ€è¦çš„æ—¶å€™å°±è°ƒç”¨å®ƒå°±å¥½äº†
+    int* NUll_Pointer = NULL;
+    cout << "NULLæŒ‡é’ˆçš„å€¼ : " << endl;
+    /*
+    åœ¨ç»å¤§éƒ¨åˆ†æ“ä½œç³»ç»Ÿä¸Š
+    æˆ‘ä»¬ä¸å…è®¸è®¿é—®ä»»ä½•æŒ‡é’ˆä¸º0çš„åœ°å€ï¼Œå› ä¸ºè¿™æ˜¯ä¸€ä¸ªç³»ç»Ÿä¿ç•™çš„ä½ç½® 
+    å†…å­˜åœ°å€0å…·æœ‰é‡è¦æ„ä¹‰ï¼Œå®ƒä»£è¡¨ç€æˆ‘ä»¬çš„æŒ‡é’ˆä¸æŒ‡å‘ä»»ä½•çš„å†…å­˜ä½ç½®
+    æŒ‰ç…§æƒ¯ä¾‹ï¼Œç©ºæŒ‡é’ˆä¸æŒ‡å‘ä»»ä½•ä¸€ä¸ªå†…å­˜ä½ç½®
+    */
+    
+    //ç©ºæŒ‡é’ˆæ£€æŸ¥
+    if(int_pointer){
+        cout << "è¿™ä¸ªæŒ‡é’ˆæ˜¯éç©ºæŒ‡é’ˆ" << endl;
+    }
+    if(!NUll_Pointer){
+        cout << "è¿™ä¸ªæŒ‡é’ˆæ˜¯ç©ºæŒ‡é’ˆ" << endl;
+    }
+    
+    //æŒ‡é’ˆçš„ç®—æœ¯è¿ç®—
+    /*
+    ä½ å¯ä»¥å¯¹ä¸€ä¸ªæŒ‡é’ˆè¿›è¡Œå››ç§ç®—æœ¯è¿ç®—ï¼š
+    ++  --  +  -
+    */
+    int Pointer_arr[5] = {1,2,3,4,5}; 
+    int* Math_Pointer = Pointer_arr;
+    //è‡ªå¢
+    Math_Pointer ++;
+    cout << "è‡ªå¢åæŒ‡å‘ ï¼š " << *Math_Pointer << endl;
+    //è‡ªå‡
+    Math_Pointer --;
+    cout << "å†è‡ªå‡åæŒ‡å‘ï¼š" << *Math_Pointer << endl;
+    //åŠ å‡1ä¸ä¸Šé¢ä¸€è‡³çš„æ•ˆæœ
+    
+    //æŒ‡é’ˆçš„æ¯”è¾ƒ
+    /*
+    åœ¨Cè¯­è¨€å’ŒC++ä¸­ï¼Œæˆ‘ä»¬å¯ä»¥é€šè¿‡==å’Œ!=æ¥åˆ¤æ–­è¿™äº›æŒ‡é’ˆæ˜¯å¦æŒ‡å‘åŒä¸€ä¸ªä½ç½®
+    */
+    int* Pointer_1 = Pointer_arr;
+    int* Pointer_2 = Pointer_arr + 5;
+    if(Pointer_1 != Pointer_2){
+        cout << "æŒ‡é’ˆæœªå¯¹é½" << endl;
+    }else{
+        cout << "ä¸¤æŒ‡é’ˆå¯¹é½" << endl; 
+    }
+    /*
+    åœ¨Cè¯­è¨€å’ŒC++ä¸­ï¼Œæˆ‘ä»¬å¯ä»¥é€šè¿‡>å’Œ<æˆ–>=,<=æ¥åˆ¤æ–­ä¸¤æŒ‡é’ˆçš„ç›¸å¯¹ä½ç½®å‰å
+    */
+    if(Pointer_1 > Pointer_2){
+        cout << "æŒ‡é’ˆ1åœ¨æŒ‡é’ˆ2åé¢" << endl;
+    }else if(Pointer_1 == Pointer_2){
+        cout << "æŒ‡é’ˆå¯¹é½" << endl;
+    }else{
+        cout << "æŒ‡é’ˆ2åœ¨æŒ‡é’ˆ1åé¢" << endl;
+    }
+    //æ³¨æ„ï¼šåœ¨è¿›è¡ŒæŒ‡é’ˆæ“ä½œæ—¶ï¼Œè¯·ç¡®ä¿æŒ‡é’ˆä¸ä¼šä¸ºç©ºï¼Œå¦åˆ™ä¼šå‡ºç°æœªå®šä¹‰è¡Œä¸º
+    
+    
+    //æŒ‡é’ˆä¸æ•°ç»„
+    /*
+    å±•ç¤ºç¨‹åºï¼šæ‰“å°æ•°ç»„ä¸­çš„å…ƒç´ +å®ƒçš„å¯¹åº”åœ°å€
+    */
+    int* Arr_P = NULL;
+    int  arr_print[10] = {1,2,3,4,5,6,7,8,9,10};
+    Arr_P = arr_print;
+    for(int i = 0 ; i < 10 ; i++){
+         
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
