@@ -1,3 +1,20 @@
+/*
+DATE : 2026/09/05
+VERSION : 1.1
+DESCRIPTION : Designed C++ Teaching codes for Learning readers
+注：本源代码用于学习与交流，参考<菜鸟教程>对于C++相关的教学进行编排
+同时也引入编者的个人思路与代码理解，对一些细节问题进行多方查证注释
+本篇编写初心是尽可能以一份代码文件通关C++的基础代码编写和语言特色
+
+*/
+
+/*
+上面是一个程序文件描述，这是多数情况下的代码编写规范
+通常我们需要在代码头部对我们的代码进行注释和基本介绍
+用这种方式告知其他程序员代码的基本功能和编写目的以及修改时的注意事项等等源码文件基本信息
+*/
+
+
 //C++标准库中的头文件
 //C++程序至少包含一个头文件，通常是iostream头文件，但并不一定是这样
 //不同情况下要求不同，自然头文件也不同，但语法结构和代码风格是相同的
@@ -51,8 +68,52 @@ int max(int num1 , int num2){
 //函数的声明（前置声明）：此处只声明 min 的原型，函数体定义在文件末尾；main 函数结束通常需要用return返回0值表示程序正常结束
 int min(int num1 , int num2);
 
+//传参函数 -> 获取当前秒数
+void getSeconds(unsigned long *par){
+    *par = time(NULL);
+    return;
+}
 
-//函数只声明而未定义时，直接调用会弹出警告（红色波浪线）
+//平均数函数
+double getAverage(int *arr , int size){
+    int i , sum = 0;
+    double avg;
+    for(int i = 0 ; i < size ; i ++){
+        sum += arr[i];
+    }
+    //浮除法与整除法注意点
+    avg = double(sum) / size;
+}
+/*
+在上面的avg后面有一个double(sum)，这个写法是类型转换写法，即将int类型的sum转换成double类型
+为什么要这么做呢？
+原因在于编程中的除法有两种规定
+整数除法与小数除法，也叫整除和浮除
+整除法会将结果截断为整数，即便保留小数位数，也依然是小数位都是0
+计算机会把整数之间的除法都认为是整除法
+消除的方式也很简单，进行小数化或者小数化标记
+比如原本是10除以4，整除法的结果是2，我们只需要对10或者4进行小数化
+比如10f/10F，或10.0
+对于变量就采纳上面的显式类型转换即可
+这样就可以进行浮除法得到2.5
+如果我们要得到的不是整数精度，而是要精确到小数
+则必须要用浮除法，小数与整数之间的除法都会被识别为浮除法，保留到小数对应的位数
+*/
+
+//随机数生成函数 用于后面的关于函数返回指针的讲解
+int * getRandom(){
+    static int r[10];
+    srand ( (unsigned) time (NULL));
+    for(int i = 0 ; i < 10 ; i++){
+        r[i] = rand();
+        cout << r[i] << endl;
+    }
+    return r;
+}
+
+
+
+//主函数main -> 程序入口
 int main(){
     
     //C++常见的预处理宏
@@ -449,21 +510,94 @@ string used \'\\\' in the sentence\n";
     int  arr_print[10] = {1,2,3,4,5,6,7,8,9,10};
     Arr_P = arr_print;
     for(int i = 0 ; i < 10 ; i++){
-         
+        cout << *Arr_P + i << " ";
+    } 
+    cout << endl;
+    /*
+    展示程序，赋值指针数组并打印
+    */
+    int* Arr_P_2[10];
+    for(int i = 0 ; i < 10 ; i ++ ){
+        Arr_P_2[i] = &arr_print[i];
+    }
+    for(int i = 0 ; i < 10 ; i++){
+        cout << *Arr_P_2[i] << " ";
+    }
+    cout << endl;
+    
+    const char *names[3] = {"Zhangsan" , "LiSi" , "WangWu"};
+    for (int i = 0 ; i < 3 ; i++) {
+        cout << "Names of Classmetes [" << i <<"]" ;
+        cout << names[i] << endl;
+    }
+
+    //指向指针的指针 -> 多级间接寻址
+    /*
+    指向指针的指针是一种多级间接寻址的形式，或者说是一个指针链。
+    指针的指针就是将指针的地址存放在另一个指针里面。
+    假设现在有两个指针 1 和 2
+    指针1 指向 指针2 ，而 指针2 指向实际值位置Value
+    在这个模型里，指针1 包含了 指针2 的地址，指针2包含了Value的地址，形成间接首尾相连的寻址链路
+    */
+    //定义指针的指针
+    int* *Pptr;
+    //这就是指针化指针：将本来的指针定义为可以指向指针的指针
+    //我们也可以用**连拼的方式定义 : int **Var_1 或者  int** Var_1
+    int* Ptr;
+    int var = 1000;
+    Ptr = &var;
+    Pptr = &Ptr;
+    cout << "Var : " << var << endl;
+    cout << "ptr : " << *Ptr << endl;
+    cout << "pptr : " << *Pptr << endl;
+    //最后的结果表明指向指针的指针本质上间接指向了最终目标，解一次引用就可以得到目标
+
+    //传参指针 -> 传参指针能直接跨域修改函数
+    /*
+    我们已经在文件头部定义了一个传参函数，用来获取当前秒数
+    */
+    unsigned long Seconds_P;
+    getSeconds( &Seconds_P ) ;
+    cout << "Number of Seconds : " << Seconds_P << endl;
+    /*
+    上述函数能够接受函数当中的指针数值并将其修改，这就是参数传递的过程
+    */
+    //下面则是数组作为参数进行数值传递
+    int balance[5] = {1000 , 2 , 3 , 17 , 50};
+    double average;
+    average = getAverage(balance , 5);
+    cout << "Average is : " << average << endl;
+
+
+    //从函数返回指针
+    /*
+    上面我们已经学习了如何通过函数对变量以及数组的结果进行传递改变
+    现在，我们可以通过类似的方法，从函数返回指针
+    你可能会有点乱，不太理解这两边到底什么意思
+    从指针传递函数和函数返回指针，到底什么意思？
+    我们将在演示代码之后进行讲述
+    */
+    int* fucback_P;
+    fucback_P = getRandom();
+    for(int i = 0 ; i < 10 ; i++){
+        cout << "( P + " << i << " )" << " =  ";
+        cout << *( fucback_P + i ) << endl;
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
     return 0;
 }
 
