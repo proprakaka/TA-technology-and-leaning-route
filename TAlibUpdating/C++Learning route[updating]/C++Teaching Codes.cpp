@@ -2,10 +2,11 @@
 DATE : 2026/09/05
 VERSION : 1.1
 DESCRIPTION : Designed C++ Teaching codes for Learning readers
-注：本源代码用于学习与交流，参考<菜鸟教程>对于C++相关的教学进行编排
+注：本源代码用于学习与交流，比参考<菜鸟教程>对于C++相关的教学目录进行全文编排
 同时也引入编者的个人思路与代码理解，对一些细节问题进行多方查证注释
 本篇编写初心是尽可能以一份代码文件通关C++的基础代码编写和语言特色
-
+阅读方式：本文的阅读方式很简单，就是从头读到尾，但是跳过开头有关函数的描述代码，有疑问的地方可以先保留，所有疑惑一定都会解决
+如果还有什么疑惑没有在文中解决，读者可以自行查找参考文献，询问AI工具，或者邮件留言:2135504482@qq.com
 */
 
 /*
@@ -15,9 +16,41 @@ DESCRIPTION : Designed C++ Teaching codes for Learning readers
 */
 
 
-//C++标准库中的头文件
-//C++程序至少包含一个头文件，通常是iostream头文件，但并不一定是这样
-//不同情况下要求不同，自然头文件也不同，但语法结构和代码风格是相同的
+
+//加上这一句的使用，你已经明白了C++中的注释方式，也就是行注释双斜杠//和区域注释/* */，在很多编程语言当中，这种注释方式基本通用且延续，甚至算是行业规范
+
+
+//正文从下面开始
+//C++标准库中的头文件 <iostream> ，扩写全称是：input-output stream [标准]输入输出流
+//C++程序至少包含一个头文件，通常是iostream头文件
+//但并不一定所有的C++程序源码都是这样
+//比如虚幻引擎UE5，在其中创建一个C++脚本，它的代码默认长下面这样
+/*
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
+#include "MyActor.generated.h"
+
+UCLASS()
+class MYPROJECT_API AMyActor : public AActor
+{
+    GENERATED_BODY()
+
+public:
+    // 构造函数：设默认值、建组件
+    AMyActor();
+
+protected:
+    // 游戏开始/生成时调用一次
+    virtual void BeginPlay() override;
+
+public:
+    // 每帧调用（默认开启）
+    virtual void Tick(float DeltaSeconds) override;
+};
+*/
+//所以不同情况下要求不同，自然头文件也不同，但语法结构和代码风格是相同的
 #include<iostream>
 
 //C++固定位小数的表示必须要包含的头文件
@@ -36,10 +69,12 @@ DESCRIPTION : Designed C++ Teaching codes for Learning readers
 //C++的string类头文件，调用它就能使用string类型
 #include<string>
 
+
 /*
 命名空间
 C++中的新型概念，是C++中用于组织代码的一种机制。
 它允许将标识符（如变量、函数、类等）分组到不同的命名空间中，以避免命名冲突。
+因为C++的函数库体量庞大，不同的库或命名空间中有使用相同名称但功能不同的函数，用命名空间标记就可以将他们区分开来
 通过使用命名空间，可以在不同的代码模块中使用相同的标识符而不会产生冲突，从而提高代码的可读性和可维护性。
 比如，在我们没使用这条指令时，每次调用std空间下的指令时就必须要加上std::，从而与其他空间区分开来 
 */
@@ -111,16 +146,90 @@ int * getRandom(){
     return r;
 }
 
+//调换函数，用于后面的引用的函数传参功能的讲解
+void swap(int& x , int& y){
+    int temp = x;
+    x = y;
+    y = temp;
+}
+
+//抽样变值函数 ： 用于后续的引用函数讲解
+double values_group[] = {13.3 , 14.2 , 15.2 ,16.3 ,17.9 , 15.8};
+double& fiset_values(int i){
+    double& ref = values_group[i];
+    return ref;
+}
+
+//引用静态变量修改函数 ： 后续将引用函数用到
+int& getStaticRef(){
+    static int num = 5;
+    return num;
+}
+
+//结构体定义
+struct books {
+    char title[50];
+    char author[50];
+    char subject[100];
+    int bookID;
+} book;
 
 
-//主函数main -> 程序入口
+//结构体数据打印函数 ： 结构体作为函数参数讲解
+void printBook (struct books book ){
+    cout << "标题：" << book.title << endl;
+    cout << "作者：" << book.author << endl;
+    cout << "书目：" << book.subject << endl;
+    cout << "书ID：" << book.bookID << endl;
+}
+
+
+
+//主函数main -> 程序入口 ， 这里是你真正接触主代码的第一步
+//在此之前，我们需要将一些基础的内容便于你理解
+/*
+#include<iostream>
+
+int main(){
+    stfd::cout << "Hello World !" << std::endl;
+    int age;
+    std::cin >> age ;
+    cout << "age : " << endl;
+    return 0;
+}
+上面一般都是你的第一个代码的主函数部分，打印helloworld，但我加了一点基础内容，如打印age
+我们一个一个解释
+main : 这是主函数标志，他是程序的入口，所有指令都从主函数开始一条条顺序执行，而对于主函数前面的内容，编译器会编译识别与后续替换！后面讲到。
+std::  ： 这是标准输入输出流的命名空间符号，所有未使用using namespace std;的C++代码，都应当在标准输入输出函数之前加上std::
+由于本文件已经使用using namespace std;命令，所以后面的代码都没有std::的标记
+对此，你可以向上翻找这条代码阅读命名空间的概念，然后回来继续学习
+cout ：这是标准输出函数，也是<iostream>头文件中的标准函数，C++中需要使用这条函数对数据进行打印处理
+cin : 这是标准输入函数，也是<iostream>头文件中的标准函数，C++中需要使用这条函数进行数据的输入处理
+为了保证全片代码编译运行结果的连贯性，cin用法基本就这一条，因此本文在此之后不再使用cin相关的会使程序挂载的指令
+endl : 这是C++中的换行代码
+在C语言中，你也许经常用\n换行，C++同样支持，但是\n本身是转义符号，所以需要按照字符串输出的方式书写，即用"\n"替换endl，后面会讲到转义符
+<< 与 >> ：这是标准输入输出方向的指示符，对他的理解你可以认为是数据传导的方向或者数据的先后顺序
+例如cout所在代码,endl换行传到到Hello World !这句话的后面，他们拼接成 Hello World ! endl 然后再传出给cout，cout负责输出打印，就会显示 Hello World ! 然后换一行
+又如cin 所在代码,你输入的数据通过cin传递给age，那么我们最后打印age，就是你输入的那个数字
+return 0 ;
+return是返回的意思，是C++函数的一个概念，后面会细讲函数，这里的return返回的是0，这是几乎所有C/C++/C#代码的规范，用return 0 返回的0值表明代码成功运行
+
+有基础的同学在这里可以看一下我下面的这句话：
+并非所有代码的主函数都必须返回0，它可以返回任何数
+因为main函数也是函数，它同样具有函数的特性，它可以被别人调用，甚至也可以调用自己
+但是为什么大部分教材的基础教学中都让main函数返回0？
+这是因为，在早期很多的教材和教学当中，我们都以 renturn 0 表示主函数正常运行
+可实际上，我们的return可以返回任何我们想要的数值，但唯一的前提就是类型匹配对应
+比如我们定义的是int main，这里的main是int类型，retrun就必须返回整数类型
+我们甚至可以用int main(void) 不接受命令行参数[即不在命令行输入数据，所以cin肯定就读取不到了，就不能正常用了], void main 不返回任何数
+*/
 int main(){
     
     //C++常见的预处理宏
-    cout << "__DATE__:" << __DATE__ << endl;                             
-    cout << "__TIME__:" << __TIME__ << endl;
-    cout << "__FILE__:" << __FILE__ << endl;
-    cout << "__LINE__:" << __LINE__ << "\n\n";
+    cout << "编译运行日期__DATE__:" << __DATE__ << endl;                             
+    cout << "编译运行时间__TIME__:" << __TIME__ << endl;
+    cout << "编译运行文件__FILE__:" << __FILE__ << endl;
+    cout << "当前所在行  __LINE__:" << __LINE__ << "\n\n";
     
     //C++的基本数据类型
     int type_int = 1;
@@ -343,6 +452,18 @@ string used \'\\\' in the sentence\n";
     int Compare_num2 = rand();
     cout<< "两个数的比较结果:"<< max(Compare_num1,Compare_num2)<<endl;
     cout<< "两个数的比较结果:"<< min(Compare_num1,Compare_num2)<<"\n\n";
+
+    //函数的运行流程与生命周期
+    /*
+    一个函数在运行结束后，其内部定义的变量，作用域，结果等都会在return传导到外部后销毁
+    这是函数的生命周期，对于void没有return，就会直接运行结束后销毁
+    函数有return最重要的原因是因为它的编译性质
+    在函数被定义后，运行代码编译器就会识别函数并对调用进行替换
+    替换的就是return后面的东西
+    例如max和min，他们return的值都是result
+    那么这个result在函数运行结束后就会替换掉max(X,Y)
+    这就是编译的预处理行为高明的地方，编译后的文件会明显直接且简洁许多，因为他是结果导向
+    */
     
     cout << "\n----------------------C++常用数学元素----------------------"<<endl;  
     /*C++常用的数学函数*/
@@ -390,6 +511,14 @@ string used \'\\\' in the sentence\n";
 字符串实际上是使用 null 字符以及\\0\
 来终止的一维字符数组。\n\
 因此，一个以 null 结尾的字符串包含了组成字符串的字符\n\n";
+//为什么这里不打缩进了？原因就在于，这里打的缩进会被认为是空格并被打印出来
+    //对此我们通常采取下面的做法：字符串拼接
+    
+    cout << "C风格的字符串源自 C 语言，但在 C++ 中依旧得到了支持。\n"
+        "字符串实际上是使用 null 字符以及\\0"
+        "来终止的一维字符数组。\n"
+        "因此，一个以 null 结尾的字符串包含了组成字符串的字符\n\n" << endl;
+
     char single_site[4] = {'C','A','I','\0'};
     char string_site[] = {"'STUDY"};
     cout << "C++会自动在字符串末尾加上 null 字符，即\\0字符" << endl;
@@ -637,15 +766,178 @@ string used \'\\\' in the sentence\n";
     /*
     现在，我们已经学习完了指针
     接下来我们将学习引用
+    这是两个极容易混淆的概念
+    在最后我们会对指针和引用进行一个总结性的对比
     */
 
     //C++引用
     /*
-    引用：
+    引用是C++的一个重要概念或者说也叫特性
+    它是C++中一种特殊的类型，它为一个已经存在的变量提供了一个别名。
+    也就是说，它是某个已经存在变量的另一个名字。
+    一旦把引用初始化为某个变量，就可以使用该引用名称或者变量名来指向变量
+    引用必须在定义时初始化，但一旦绑定到某个变量后，就不可以再绑定别的变量
+    */
+    //引用的基本定义语法，&读作“引用”，示例可以读作 "ref_arf是一个初始化为arf的整型引用"
+    int arf = 10;
+    int& ref_arf = arf;
+    //上面还可以写成int &ref = arf;，这两种写法是等价的
+    //和指针相似，这两种写法中，&符号紧靠类型名的写法更容易理解，表示这是一个引用类型的变量
+    cout << "arf = " << arf << endl;
+    cout << "ref = " << ref_arf << endl;
+    /*
+    引用与指针存在很多不同，他们不是一个东西
+    1.不存在空引用，因此它必须连接到合法内存
+    2.引用被绑定后只能指向这一个对象，但指针可以修改或指向任意对象
+    3.引用被创建的时候就应当初始化，指针则可以任意时候进行初始化
+    4.引用的对象一定是一个变量，指针则是地址
+    5.引用可以直接使用，无需解引用
+    6.引用不允许多级间接访问，也就是引用变量不能再被引用
+    7.引用不能进行算术运算，指针可以
+    8.引用常用于函数参数传递，指针常用于动态内存分配
+    9.引用不能直接创建引用数组，但可以创建数组的引用
+    10.引用不能作为类的成员变量，但可以作为类的成员函数的返回值
+    11.安全性上引用更加安全，但相比指针不够灵活
+    12.底层来讲，引用是由指针实现的，但它们在语法上是不同的
+    13.引用不占用额外内存，编译器通常会优化为直接操作所引用的对象
+    */  
+    //相比这么多不同，你肯定没记住几个，甚至一个都没记住
+    //对此，我将会挨个示例代码讲述
+
+
+    // 1. 引用NULL报错，但对象是NULL不报错
+    int null_Beref = NULL;
+    int& ref_null = null_Beref;
+
+    // 2. 引用不可以重新绑定
+
+    // 3. 引用不占用内存，会被优化为别名
+
+    // 4. 可以直接访问
+    cout << ref_null << endl;
+
+    // 5. 不支持多级引用，即引用不能被引用
+
+    // 6. 通常用于函数传参 | 这里用到头部定义的调换函数swap
+    int refnumber_1 = 100;
+    int refnumber_2 = 200;
+    cout << "number 1 : " << refnumber_1 << endl;
+    cout << "number 2 : " << refnumber_2 << endl;
+    cout << "Swap rsult : " << endl;
+    swap(refnumber_1 , refnumber_2);
+    cout << "number 1 : " << refnumber_1 << endl;
+    cout << "number 2 : " << refnumber_2 << endl;
+
+    /*
+    一定有人会问，为什么会这样？为什么我们总要借助引用、指针来通过函数修改外部变量的数据？
+    这就要讲到函数的生命周期了
+    函数在结束时，它内部所创建的变量，运算结果等都会在return传出后立刻销毁
+    而对于void，它不需要return，自然也就直接在运行结束后销毁了
+    可见，如果想要函数对外部发生改变，最简单的方式莫过于用return传出一个值给到外部
+    但是，一个函数只有一次returrn，传出的值实在有限制
+    对此，我们就会想到用指针，通过直接修改内存数据的方式来修改外部参数
+    这就是我们的指针函数传参和函数指针传参的方法
+    对于他们两个，你肯定是知道的，我们前面讲过
+    那么还有没有办法改变了呢？
+    当然有啊，不就是引用嘛，这就是引用传参
+    我们可以看到swap函数给了两个入口，都是引用变量
+    当我们传入refnumber_1和refnumber_2时，x和y就会引用他们
+    这样，当我们修改函数内的x，y
+    对应的，外部的refnumber_1和refnumber_2就会被修改
+    因为引用最底层还是指针
+    虽然我们认为它是一个变量的别名
+    但这个别名就如同一个”量子纠缠“
+    当引用发生改变，其代表的原始变量自然也会发生相同的改变
+    这就是引用，这就是原理
     */
 
+    //都到这里了，引用其实也可以作为返回值，也就是引用函数，对照前面的指针函数类似
+    //函数依旧定义在文件头
+    cout << "改变前的值列表" << endl;
+    for(int i = 0 ; i < 5 ; i ++){
+        cout << "values[ " << i << " ]";
+        cout << values_group[i] <<endl;
+    }
+    cout << "改变后的值列表" << endl;
+    fiset_values(1) = 31.5;
+    fiset_values(3) = 21.5;
+    for(int i = 0 ; i < 5 ; i++){
+        cout << "Values : [ " << i <<  " ] = ";
+        cout << values_group[i] << endl;
+    }
+    /*
+    函数贴在这里：
+    double& fiset_values(int i){
+        double& ref = values_group[i];
+        return ref;
+    }
+
+    在上面的引用函数中，[拿其中一个举例]我们对引用函数fiset_values传入了1 
+    这个1会传到给函数中的i，由于这是一个引用函数
+    根据函数的基本性质，函数的类型决定他的返回值类型，因此返回的ref就是一个引用类型
+    对此我们在函数内部定义它时，他就是一个引用类型
+    由于我们传入1，所以这里的ref被初始化成了数组的第一个元素
+    也就是说，ref代表的就是那个全局数组当中的第一个元素
+    对此，当我们返回ref出来的时候，实际上fiset_values(1) = 31.5被编译成 ref = 31.5
+    也就是说，数组中的那第一个元素被修改成了31.5
+    到此流程结束
+    */
+
+    //引用还有一个比较简洁的应用，就是修改静态变量，函数在头部
+    int& static_ref = getStaticRef();
+    cout << " 初始值 : " << static_ref << endl;
+    static_ref = 10 ; 
+    cout << " 修改后 : " << getStaticRef() << endl;
+
+    // 7. 不能直接创建引用数组，但可以创建数组引用
+    int arr_for_ref[5] = {0};
+    int (&ref_arr)[5] = arr_for_ref;
+
+    // 8. 安全但不如指针灵活
+    //到此引用讲完了
 
 
+
+    /*   结构体struct   */
+    /*
+    C/C++都允许定义可存储相同类型数据项的变量，但结构是C++的另一种用户自定义的可用数据类型
+    它允许我们存储不同类型的数据项
+    因此，你可以把结构体理解为是一种用户自定义数据类型    
+    */
+    //创建结构体 : 请在文件头部查找
+    //结构体的优点：1.适合封装和数据存储 2.轻量化 3.面向对象属性 ; 此处不做细致讲解，后面会讲到
+    
+    //定义books变量
+    books book1;
+    books book2;
+    //设定book1的数据
+    strcpy(book1.title , "C++代码教程");
+    strcpy(book1.author , "无名氏");
+    strcpy(book1.subject , "编程教程");
+    book1.bookID = 1314520;
+    //设定book2的数据
+    strcpy(book2.title , "C语言代码教程");
+    strcpy(book2.author , "无名氏");
+    strcpy(book2.subject , "编程教程");
+    book2.bookID = 1145141;
+
+    //数据输出，这里随便输出两个
+    cout << book1.title << " ID代码是 ";
+    cout << book1.bookID << endl;
+
+    /*  下面是结构体的一些基本应用  */
+    //1. 结构体作为函数参数 
+    printBook(book1);
+    printBook(book2);
+    cout << endl;
+
+
+
+
+
+
+
+    
 
 
 
