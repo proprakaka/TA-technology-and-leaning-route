@@ -69,6 +69,28 @@ public:
 //C++的string类头文件，调用它就能使用string类型
 #include<string>
 
+//C++的vector容器头文件
+#include<vector>
+
+//C++accumulate函数头文件
+#include<numeric>
+
+//C++内存管理头文件stack
+#include<stack>
+
+//C++队列管理头文件
+#include<queue>
+
+//C++哈希表头文件
+#include <unordered_map>
+
+//C++映射头文件
+#include <map>
+
+//C++双端映射头文件
+#include <set>
+
+
 
 /*
 命名空间
@@ -87,12 +109,13 @@ using namespace std;
 第二种写法*/
 
 //全局变量的定义
-//NULL 空值，通常用于初始化不需要赋值的变量，或者用于指针的初始化
-int Global_Variables = NULL;
+//NULL 空值，通常用于用于不需要赋值的指针的初始化，但绝不能用于初始化普通变量
+int* null_pointer = NULL;
+int Global_Variables = 111;
 
 //一般函数的标准形式
 int max(int num1 , int num2){
-    int result = NULL;
+    int result = 100;
     if(num1 > num2){
         result = num1;
     }else {
@@ -118,6 +141,7 @@ double getAverage(int *arr , int size){
     }
     //浮除法与整除法注意点
     avg = double(sum) / size;
+    return avg;
 }
 /*
 在上面的avg后面有一个double(sum)，这个写法是类型转换写法，即将int类型的sum转换成double类型
@@ -147,7 +171,7 @@ int * getRandom(){
 }
 
 //调换函数，用于后面的引用的函数传参功能的讲解
-void swap(int& x , int& y){
+void swep(int& x , int& y){
     int temp = x;
     x = y;
     y = temp;
@@ -167,12 +191,37 @@ int& getStaticRef(){
 }
 
 //结构体定义
-struct books {
+struct books
+{
     char title[50];
     char author[50];
     char subject[100];
     int bookID;
 } book;
+//代码书写规范注释
+/*
+未什么我们之前的代码通常是后缀{，最后在换行}
+也就是int main{
+}
+的书写方式
+但现在却采纳
+{
+}
+实际上两种都可以采纳，第一种通常在C语言，C++中被大多数人采纳
+原因在于我们大部分情况都不会出现特别多花括号堆叠的情况
+而struct采用第二种书写方式几乎是编程规范，原因在于它是面向对象编程的重要部分
+struct class 等等这些关键字，他们几乎都要用到一个花括号
+而且花括号里还能继续花括号
+如果我们不采用第二种方式，代码会很乱
+所以我们通常在面向对象编程的时候，采用第二种书写方式
+例如C#，你让VS2026创建一个新的C#代码，他会默认给你设置好初始函数，而他就是第二种书写
+C#也基本上采用第二种书写方式，这也是它的标准代码规范，核心还是为了可读性
+*/
+
+
+
+
+
 
 
 //结构体数据打印函数 ： 结构体作为函数参数讲解
@@ -183,6 +232,13 @@ void printBook (struct books book ){
     cout << "书ID：" << book.bookID << endl;
 }
 
+//打印信息函数，用于设定指针函数用指针传参从而实现非重载打印输出
+void printBookInfo(const books* book){
+    cout << "书籍标题: " << book->title << endl;
+    cout << "书籍作者: " << book->author << endl;
+    cout << "书籍类目: " << book->subject << endl;
+    cout << "书籍 ID: " << book->bookID << endl;
+}
 
 
 //主函数main -> 程序入口 ， 这里是你真正接触主代码的第一步
@@ -248,7 +304,7 @@ int main(){
     long type_long_int_max = 2147483647;
     long type_long_int_min = -2147483648;
     long long type_LL_int_max = 9223372036854775807;
-    long long type_LL_int_min = -9223372036854775808;
+    long long type_LL_int_min = -92233720368547758;
     const int type_const_int = 123;
    
     //输出语法相关
@@ -519,7 +575,8 @@ string used \'\\\' in the sentence\n";
         "来终止的一维字符数组。\n"
         "因此，一个以 null 结尾的字符串包含了组成字符串的字符\n\n" << endl;
 
-    char single_site[4] = {'C','A','I','\0'};
+    //这里写16的原因在于为了预留充足的空间，防止拼接的时候数据溢出
+    char single_site[16] = {'C','A','I','\0'};
     char string_site[] = {"'STUDY"};
     cout << "C++会自动在字符串末尾加上 null 字符，即\\0字符" << endl;
     cout << single_site << endl;
@@ -805,15 +862,16 @@ string used \'\\\' in the sentence\n";
     //对此，我将会挨个示例代码讲述
 
 
-    // 1. 引用NULL报错，但对象是NULL不报错
-    int null_Beref = NULL;
-    int& ref_null = null_Beref;
+    // 1. 引用NULL报错
+
 
     // 2. 引用不可以重新绑定
 
     // 3. 引用不占用内存，会被优化为别名
 
     // 4. 可以直接访问
+    int ref_null = 100;
+    int& null_ref = ref_null;
     cout << ref_null << endl;
 
     // 5. 不支持多级引用，即引用不能被引用
@@ -824,7 +882,7 @@ string used \'\\\' in the sentence\n";
     cout << "number 1 : " << refnumber_1 << endl;
     cout << "number 2 : " << refnumber_2 << endl;
     cout << "Swap rsult : " << endl;
-    swap(refnumber_1 , refnumber_2);
+    swep(refnumber_1 , refnumber_2);
     cout << "number 1 : " << refnumber_1 << endl;
     cout << "number 2 : " << refnumber_2 << endl;
 
@@ -904,6 +962,17 @@ string used \'\\\' in the sentence\n";
     它允许我们存储不同类型的数据项
     因此，你可以把结构体理解为是一种用户自定义数据类型    
     */
+    /*
+    ----结构体组成
+    ->struct关键字 ： 定义结构体用
+    ->成员变量 ： 是struct中的数据项，可以是任何类型，默认是public权限
+    ->访问权限 ： public ，private ， protected 是常见的三种访问权限
+    public权限可以让所有内外部成员都可以随意调用
+    private权限只能让内部成员调用
+    protected权限谁都无法调用
+    struct与class有区别，class默认为private权限
+    */
+    
     //创建结构体 : 请在文件头部查找
     //结构体的优点：1.适合封装和数据存储 2.轻量化 3.面向对象属性 ; 此处不做细致讲解，后面会讲到
     
@@ -931,11 +1000,348 @@ string used \'\\\' in the sentence\n";
     printBook(book2);
     cout << endl;
 
+    //2. 指向结构体的指针
+    struct books *struct_pointer;
+    //此代码定义了一个struct_pointer指针，默认指向books结构变量的地址
+    struct_pointer = &book1;
+    //此代码会将指针指向具体的books结构类型的变量book1
+    struct_pointer->title;
+    //此代码使用->将指针指向了book1.title
+
+    //那么怎么通过指针输出对应数据呢？
+    //如果想要直接用cout打印，会发现编译器会报错，因为cout不能识别结构体变量，对此需要重载<<，后续讲到
+    //这里用函数指针的方式实现，printBookInfo函数在头部
+    //因为我们对上面的函数定义的是onst books* book传入参数类型，因此只能接受指向books的指针
+    struct books *ptrbooks2;
+    ptrbooks2 = &book2;
+    printBookInfo(ptrbooks2);
+    /*
+    函数代码：
+    void printBookInfo(const books* book){
+        cout << "书籍标题: " << book->title << endl;
+        cout << "书籍作者: " << book->author << endl;
+        cout << "书籍类目: " << book->subject << endl;
+        cout << "书籍 ID: " << book->bookID << endl;
+    }
+    
+    工作原理：
+    这个函数的参数入口设定的是一个函数指针，但这个指针的类型是books结构体类型
+    
+    至于为什么有一个const修饰，这里插入讲解一下：
+    这其实是一个C++代码书写规范，C语言，C#同样通用
+    它实际上是想表明传入一个只读内容
+    当我们要引用函数指针的时候，通常默认情况下是为了让形参改变实参
+    但此处我们只用作打印，而非任何数据改变
+    所以加上const可以有效防止篡改数据等
+    本质上我们只是在这里使用到了这一个书写规范而已，此处不加const也不会有影响
+    
+    接上，这个指针就是我们定义的ptrbooks2
+    ptrbooks2指向的是books结构体类型变量book2的地址
+    因此，他会传入book2的数据
+    此时就会执行打印
+    工作原理本质还是一个函数指针
+    */
+    
+    //typedef重定义结构体
+    /*
+    这段代码将会讲解typedef对struct的改变
+    你可以对struct关键字进行取别名
+    typedef struct books
+    {
+    char title[50];
+    char autho[50];
+    char subject[100];
+    int book_id;
+    }   
+    从此，你可以用books当作结构体关键字
+    books book1;
+    */
+    
+    /*   C++的vector容器   */
+    //在C++中，vector可谓是STL神器之一
+    //vector是容器的一种，而非容器，容器有很多，list，map都算是容器，后面会讲这些
+    //vector 本质是一个可自动扩容的动态数组，它的好处在于可以不用手动管理内存，它会自动适应
+    //同时，它还支持迭代器，能方便地与STL配合
+    //关于STL以及vector，后面都会细细讲解
+    /*
+    由于vector既具备完整的STL生态，还具有连续内存存储和随机访问速度快等优点
+    导致在现代的C++开发中，vector几乎是大部分顺序数据存储场景的首要考虑
+    */
+    
+    
+    /*
+    在讲 vector 语法之前，先说说 vector 对 CPU 缓存友好的原因。
+    CPU 执行速度远快于内存读取速度，为了弥补这个差距，CPU 内部引入了高速缓存（Cache）。
+    缓存会提前从内存加载即将使用的数据，但加载的最小单位是缓存行（通常 64 字节）。
+    如果内存中的数据是连续排列的，那么一次加载就能把多个相邻数据同时放入缓存，
+    后续访问这些数据时就能直接从缓存获取，避免等待内存。
+    这就是“空间局部性”——缓存友好的核心。
+    vector 的元素在内存中连续存储，遍历时顺序访问相邻地址，完美利用空间局部性。
+    第一个元素被加载时，它所在的整个缓存行都被带入缓存
+    接下来的几个元素很可能已经在那里了，所以遍历极快。
+    而 list、map 等链式结构元素分散，每次访问都可能触发缓存缺失，速度自然慢很多。
+    因此，vector 的连续内存让它天生对缓存友好，遍历效率远高于非连续容器。
+    */
+    
+    //vector使用需要引入<vector>
+    //vector定义语法
+    vector<int>empty_vec;
+    vector<int>zero_vec(5);
+    vector<int>ten_vec(5 , 10);
+    vector<int>initia_vec = {1,2,3,4,5};
+    
+    //vector功能语法
+    //1. push_back()向尾部添加元素
+    initia_vec.push_back(100);
+
+    //2.直接元素访问与at元素访问 : at会检查越界，而[]不会
+    int initial_vec_x = initia_vec[5];
+    int initial_vec_y = initia_vec.at(5);
+    cout << "x : " << initial_vec_x << endl;
+    cout << "y : " << initial_vec_y << endl;
+
+    //3. .size与.capacity获取大小 : 前者统计元素数量，后者统分配的内存容量
+    int initial_vec_size = initia_vec.size();
+    int initial_vec_capa = initia_vec.capacity();
+    cout << "size : " << initial_vec_size << endl;
+    cout << "capacity : " << initial_vec_capa << endl;
+
+    //4. vector扩容机制
+    /*   当vector想要扩容，但顺序内存再没法扩容时：
+     1.申请更大内存
+     2.复制旧元素
+     3.释放旧内存
+    代价就是占用升高，vector扩容速度会变慢
+    如果多次无法找到匹配空间导致重申，就会发生卡壳的情况
+    因此尽量避免大规模push_back
+    */
+
+    //5. reserve()预分配空间 : 可以有效避免频繁扩容，有效优化vector扩充导致的运行变慢
+    vector<int>amplify_vec;
+    amplify_vec.reserve(1000);
+
+    //6. vector的遍历
+    for(int i = 0 ; i < 1000 ; i++){
+        amplify_vec.push_back(i);
+    }
+
+    for(size_t i = 0 ; i < amplify_vec.size() ; i++){
+        cout << amplify_vec[i] << " " ;
+        //5个元素一行
+        if(i % (unsigned int)5 == 0){
+            cout << endl;
+        }
+    }
+    /*
+    size_t类型：本质是无符号整数类型unsigned int
+    定义在<cstddef>头文件里，但这个文件一般包含在<iostream>标准库当中
+    size_t在C++中并非是关键词，而是类型别名
+    一般专门用来表示对象的大小或者数组/容器的元素个数
+    */    
+
+    //7. vector迭代器遍历
+    for(auto it = amplify_vec.begin() ; it != amplify_vec.end() ; ++it){
+        cout << *it << " ";
+        //因为迭代器不允许使用模运算符直接运算，所以我们得间接运算
+        //原理 ： it-首元素 = 当前元素下标 而默认第一个下标为0，因此得+1得到1开头的索引，接着进行模运算即可
+        if( (it - amplify_vec.begin() + 1) % 5 == 0){
+            cout << endl;
+        }
+    }
+    //上面的间接运算还以用计数器的方法去操作，这里你可以自己试一试，此处不再赘述
+
+    /*
+    在此之前我们没介绍auto，插入介绍一下：
+    auto是一个关键字，也是一个C++变量类型
+    这个类型的变量，系统会自动识别它的类型，但是auto太多会增加系统占用
+    这里使用auto被认为是代码规范，因为可以增加可读性同时也减少代码编写
+    迭代器
+    迭代器是一个抽象的概念，实际上可以被理解为vector当中的一个专门的指针
+    .begin()和.end()实际上也算是一种特殊的vector中的“指针”
+    begin会读取vector首元素的位置
+    end会读取vector末尾元素的位置
+    因此，他们两个只具有类似于指针的指向性
+    那么它们的类型是什么呢？
+    是 std::vector<int>::iterator 
+    这是一个vector的类型，也叫迭代器
+    所以这个for代码就是在打印vector中的所有元素
+    因为用到迭代器，所以也叫迭代器遍历
+    */
+
+    //8. 范围for循环 ： C++11引入的range-based for loop方法，可以快速遍历整个容器
+    for (int element : amplify_vec) {
+        cout << element << " ";
+        if(element % 5 == 0){
+            cout << endl;
+        }
+    }
+    //element : amplify_vec 其实是在说，element要依次等于amplify_vec里的每一个元素
+    /*
+    PS：范围for循环完全等价于迭代器循环，他俩的本质区别在于，范围for循环更简洁
+    但代价就是不能跳过某些元素或者指定某些元素，即无法进行精细控制
+    */
+   
+    cout << endl;
+
+    //9. 删除元素 .erase “没错就是擦除的意思，不是橡皮，橡皮是eraser”
+    //我们以initia_vec为例子，我们要删除3
+    initia_vec.erase(initia_vec.begin() + 3);
+    for(int element : initia_vec){
+        cout << element << " "; 
+    }
+
+    cout << endl;
+
+    //10. 插入元素.insert
+    //意思是从initia_vec容器的首元素开始插入，插入为100
+    initia_vec.insert(initia_vec.begin() , 100);
+    for(int element : initia_vec){
+        cout << element << " ";
+    }
+
+    /*
+    聪明的你一定会发现，我们先前讲过vector存储数据都是连续的
+    我们加入一个数需要新空间，这样会引起新内存申请等繁琐操作进而增加占用和时间
+    那么同样的，删除操作也会造成占用
+    为什么呢？
+    聪明你的聪明地察觉到了vector的连续性！
+    如果你删除了vector中间的某个元素
+    那么这个元素后边的所有元素
+    都要发生位置的改变！
+    这样，它后面有几个数字，他就得移动几次
+    因为在这里元素都是一次一次往前面移动的
+    那么，insert肯定也会占用了！
+    在哪里插入，它后面的元素就得往后挪
+    它们都一样会造成占用，增加运行时间
+    所以我们应当避免频繁插入，也应当避免频繁的中间删除，更应该对大对象谨慎扩容删减
+
+    有数据结构与算法基础的同学在这里可以发现
+    每次挪动所造成的时间复杂度其实是 O(n) 呈线性增长
+    这也就是为什么我们要谨慎对待大对象容器
+    */
+
+    //11. 迭代器失效
+    /*
+    这是个很有趣的现象
+    当vector扩充以后，我们原来的vector内存地址很可能就失效了
+    原因也很简单
+    比如我们的vector新申请了内存
+    它的地址就会改变
+    */
+
+    //12. clear()清空元素 ->它只会清空元素size，但不会清空capacity
+    amplify_vec.clear();
+    //clear不主动释放内存
+
+    //13. swap()释放内存 -> 交换法释放内存，最常用且简单粗暴 -> 具体牵扯到析构，以后讲解
+    vector<int>().swap(amplify_vec);
+
+    //14. shrink_to_fit()释放内存
+    //它不一定真的释放内存，具体取决于size与capacity是否相等
+    /*
+    若size 与 capacity相等，它就不会实现，这也就决定了它是非强制性释放内存
+    这种非强制性释放内存可以有效避免触动敏感环境
+    通常我们会对临时缓冲区进行shrink_to_fit()以节省内存
+    若它俩不相等
+    就会执行新申请size，至于capacity会尽可能对齐size
+    通常配合clear使用清空容器
+    时间复杂度依然是O(n)，元素数越多，线性变慢
+    */
+    initia_vec.clear();
+    initia_vec.shrink_to_fit();
+
+    
+    //15. push_back与emplace_back
+    //相比push_back()末尾加数，现代C++更推荐用emplace_back()
+    cout << endl;
+    ten_vec.emplace_back(100);
+    for(int element : ten_vec){
+        cout << element << " ";
+    }
 
 
+    //接下来将讲解部分C++的常见数据结构，这部分目前可以先选修，我也在这里只做例写
 
+    //Array 数组
+    int Array[5] = {1,2,3,4,5};
+    cout <<Array[0];
 
+    //Struct 结构体
+    struct person{
+        string name;
+        int age;
+        int ID;
+    }Zhangsan;
+    Zhangsan = {"Zhangsan" , 18 , 114514};
+    cout << "name : " << Zhangsan.name << endl;
+    cout << "age : " << Zhangsan.age << endl;
 
+    //Class 类
+    class people
+    {
+    private:
+        string name;
+        int age;
+        int ID;
+    public:
+        people(string n , int a , int(d)) : name(n) , age(a) , ID(d) {}
+        void printInfo(){
+            cout << "Name : " << name << "\n Age : " << age << "\n ID : " << ID << endl;
+        }
+    };
+    people Lisi("Lisi",30,1314520);
+    Lisi.printInfo();
+
+    //Linked List 链表
+    struct Node{
+        int data;
+        Node* next;
+    };
+    Node* head = nullptr;
+    Node* newNode = new Node{10 , nullptr};
+    head = newNode;
+
+    //Stack 栈 需要引用<stack>内存管理头文件
+    stack<int> s;
+    s.push(1);
+    s.push(2);
+    cout << s.top();
+    s.pop();
+
+    //Queue 队列  需要引用<queue>头文件
+    queue<int> q;
+    q.push(1);
+    q.push(2);
+    cout << q.front();
+    q.pop();
+    
+    //Deuqe 双端队列
+    deque<int> dq;
+    dq.push_back(1);
+    dq.push_front(2);
+    cout << dq.front(); // 输出 2
+    dq.pop_front(); 
+    
+    //Hash Table 哈希表 需要引用<unordered_map>头文件
+    unordered_map<string, int> hashTable;
+    hashTable["apple"] = 10;
+    cout << hashTable["apple"]; // 输出 10
+    
+    //Map 映射 需要引用<map>头文件
+    map<string, int> myMap;
+    myMap["apple"] = 10;
+    cout << myMap["apple"]; // 输出 10  
+     
+    //Set 集合 需要引用<set>头文件
+    set<int> s;
+    
+    //Vector 动态数组 需要引用<vector>头文件
+    vector<int> v;
+    v.push_back(1);
+    v.push_back(2);
+    cout << v[0]; // 输出 1
+
+    
 
     
 
@@ -949,7 +1355,7 @@ string used \'\\\' in the sentence\n";
 }
 
 int min(int num1, int num2){
-    int result = NULL;
+    int result = 0;
     if(num1 < num2){
         result = num1;
     }else{
