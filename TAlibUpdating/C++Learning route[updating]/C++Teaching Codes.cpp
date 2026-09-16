@@ -242,6 +242,136 @@ void printBookInfo(const books* book){
 }
 
 
+//构造函数 名与类相同才是构造函数
+class Line 
+{
+    public:
+    Line();
+    void setLength(double len);
+    double getLength() const;
+
+    private:
+    double length;
+};
+
+Line::Line()
+{
+    cout << "对象已创建" << endl;
+    length = 0.0;
+}
+
+void Line::setLength(double len){
+    length = len;
+}
+
+//const置后写法用于修饰整个函数，承诺函数不会改变任何值，否则会报错
+double Line::getLength() const{
+    return length;
+}
+
+//上述Line类可以简化，我们只需要让构造函数具备传参功能即可
+class Line2
+{
+    public:
+    Line2(double len);
+    
+    private:
+    double length;
+};
+
+Line2 :: Line2(double len){
+    cout << "对象已创建" << endl;
+    length = len;
+    cout << "线长 ： " << length << endl;
+}
+
+//析构函数
+class Cube
+{
+    public:
+    Cube();
+    ~Cube();
+    void setlen(double x , double y , double z);
+    double getvolume(void);
+
+    private:
+    double wi;
+    double le;
+    double he;
+};
+
+Cube::Cube(){
+    cout << "你创建了一个方体" << endl;
+}
+
+Cube::~Cube(){
+    cout << "该方体已被删除" << endl;
+}
+
+void Cube::setlen(double x, double y, double z){
+    wi = x;
+    le = y;
+    he = z;
+}
+
+double Cube::getvolume(void){
+    double volume = wi * le * he;
+    return volume;
+}
+
+//拷贝构造函数
+class triangle
+{
+    public: 
+    triangle(double hi , double de);
+    triangle(const triangle &object);
+    ~triangle();
+    double getsquare(void){
+        double square = h * d * 1/2;
+        return square;
+    }
+
+
+    private:
+    double h;
+    double d;
+    double* ptr;
+
+};
+
+triangle::triangle(double hi , double de){
+    h = hi;
+    d = de;
+    cout << "你的三角形对象已创建" << endl;
+}
+
+//重点：拷贝结构函数
+//&object是一个引用，因此这里是一个函数引用
+triangle::triangle(const triangle &object){
+    //new用于开辟堆空间，把地址赋予给ptr
+    ptr = new double;
+    //
+    *ptr = *object.ptr;
+    cout <<"已调用拷贝并为ptr分配内存" << endl;
+}
+
+triangle::~triangle(){
+    cout << "内存已释放" << endl;
+    delete ptr;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 //主函数main -> 程序入口 ， 这里是你真正接触主代码的第一步
 //在此之前，我们需要将一些基础的内容便于你理解
 /*
@@ -1420,9 +1550,6 @@ string used \'\\\' in the sentence\n";
             return square;
         }
 
-
-
-
     }box1,box2;
     //Box类的变量既可以在外部定义，也可以在内部定义
     Box box3;
@@ -1542,7 +1669,89 @@ string used \'\\\' in the sentence\n";
     构造函数的名称与类的名称完全相同，且没有返回类型
     构造函数通常用于成员变量设置初始值
     */
+    /*
+    构造函数注意事项
+    1. 构造函数没有明确的类型名称，且是相对于类而言的功能
+    2. 构造函数的名称与类的名称完全一致，比如我的类叫Line，构造函数也得叫Line，否则就是别的函数
+    3. 构造函数不可以在main中进行定义操作
+    4. 原则上来讲可以在main里的类中进行局部定义，但不推荐，且限制极多，开发也很少用
+   
+    */
+    //1. 一般构造函数：头部已定义好一个构造函数
+    Line line;
+    line.setLength(6.0);
+    cout << "Length of line : " << line.getLength() << endl;
+
+    //2.带参数的构造函数，也在头部，要求就是创建新变量必须输值进行初始化
+    Line2 line2(2.5);
+
+    //3.初始化列表 -> 代码规范
+    //这里不做专门代码
+    //这里给你写一下怎么写的
+    /*
+    Line2::Line2(double len) : lengt(len){
+        cout << len << endl;
+    }
+    它就等价于我们在头部写的那种，直接定义方法
+    */
+
+    /*  ---类的析构函数---  */
+    /*
+    析构同样是一种特殊的成员函数
+    在对象的生命周期结束的时候会自动执行，以用于释放对象占用的内存
+    析构函数的名称与类也是完全相同的，只不过要加一个~前缀
+    析构函数同样不返回任何值，而且一个类对应一个析构函数
+    说人话，析构函数就是当前生命周期结束时做的最后一件事
+    */
+    Cube little_cube;
+    little_cube.setlen(3.4 , 5.6 , 7.3);
+    volume = little_cube.getvolume();
+    cout << "Cube 的 体积 : " << volume << endl;
+    //在这里，我们的little_cube是一个栈对象，因为它在main中直接定义
+    //因此析构函数会在main结束后(运行到main的最后一个花括号)自动调用 
+    //但如果我们要用到delete手动删除它，析构函数会在delete结束后自动调用
+    //但因为我们这个little_cube是栈对象，不可以被手动删除，除非我们用new创建堆对象指针
+    /*   后续会讲解什么是栈，什么是堆，以及什么是delete   */
+
+    /*  ---拷贝构造函数---  */
+    /*
+    拷贝构造函数是一种特殊的构造函数
+    顾名思义拷贝就是复制粘贴，所以在创建对象的时候
+    它会使用同一类之前创建过的对象来进行新对象的初始化
+    拷贝函数的要求：
+    如果在类中没有定义拷贝构造函数，编译器会自行定义一个。
+    如果类带有指针变量，并有动态内存分配
+    则它必须有一个拷贝构造函数。
+    */
+
+    /*
+    在学习拷贝函数之前，我们先简单学习栈与堆
+    栈与堆都是计算机内存
+    栈是顺序内存，所以很快
+    但代价就是必须按顺序存取，先进后出
+    堆则比较随意，甚至分散
+    所以它慢
+    但好处就是它可以不用按顺序来
+    一般，我们在main当中定义的变量，都会放在栈里
+    所以，对于上面的一些变量或函数，我们没法用delete删掉
+    */
     
+    //方式一
+    triangle little_triangle(3,5);
+    square = little_triangle.getsquare();
+    cout << "三角形面积 ： " << square << endl;
+    //方式二
+    triangle another_triangle(4,5);
+    triangle anonother_triangle = another_triangle;
+
+    /*
+    new函数
+    new它负责开辟一块堆空间，然后再把这个堆空间的地址给到我们的指针或分配给变量
+    因此我们就能对该指针或者变量进行delete清空操作
+    */
+    
+
+
 
 
 
