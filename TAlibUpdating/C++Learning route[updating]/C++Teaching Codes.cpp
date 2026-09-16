@@ -50,6 +50,7 @@ public:
     virtual void Tick(float DeltaSeconds) override;
 };
 */
+
 //所以不同情况下要求不同，自然头文件也不同，但语法结构和代码风格是相同的
 #include<iostream>
 
@@ -247,12 +248,14 @@ void printBookInfo(const books* book){
 #include<iostream>
 
 int main(){
-    stfd::cout << "Hello World !" << std::endl;
+    std::cout << "Hello World !" << std::endl;
     int age;
     std::cin >> age ;
     cout << "age : " << endl;
     return 0;
 }
+
+
 上面一般都是你的第一个代码的主函数部分，打印helloworld，但我加了一点基础内容，如打印age
 我们一个一个解释
 main : 这是主函数标志，他是程序的入口，所有指令都从主函数开始一条条顺序执行，而对于主函数前面的内容，编译器会编译识别与后续替换！后面讲到。
@@ -1260,7 +1263,10 @@ string used \'\\\' in the sentence\n";
     }
 
 
-    //接下来将讲解部分C++的常见数据结构，这部分目前可以先选修，我也在这里只做例写
+    //接下来将列举部分C++的常见数据结构
+    //这部分当前都属于预览内容，有的你学过，有的你马上要学
+    //还有一些是高级功能，后续都会讲到
+
 
     //Array 数组
     int Array[5] = {1,2,3,4,5};
@@ -1342,6 +1348,206 @@ string used \'\\\' in the sentence\n";
     cout << v[0]; // 输出 1
 
     
+    //上述内容类似于预览内容，现在有一个印象即可
+    //后续我们都会讲到，而且都是比较重要的高级功能
+    //在此处提到是为了迎合基础语法的排版
+    /*----C++面向对象编程-----*/
+    //类&对象
+    //C++在C语言的基础上增加了面向对象编程
+    //而类就是其核心特性，称为用户自定义类型
+    //当后续学习C#这种以面向对象为核心设计的语言时，这些知识点全然互通
+
+    class Box
+    {   
+        public:
+        class smallBox
+        {   
+            public:
+            double length;
+            double breadth;
+            double height;
+            //用于设定smallbox自己的对象
+            void set(double len , double bre , double hei){
+                length = len;
+                breadth = bre;
+                height = hei;
+            }
+            //用于计算smallbox自己的size
+            double getboxsize(){
+                return (length + breadth + height) * 4;
+            }
+            //用于设定box对象
+            void setbox (Box& outer , double len , double bre , double hei){
+                outer.set(len , bre , hei);
+            }
+        };
+        double volume;
+        double length;
+        double breadth;
+        double height;
+        
+        void set(double len,double bre, double hei){
+            length = len;
+            breadth = bre;
+            height = hei;
+        }
+
+        double getvolume(void){
+            volume = length * breadth * height;
+            return volume;
+        }
+        
+        double getsquare(){
+            caculatesquare();
+            return square;
+        }
+
+        double getboxsize(){
+            calculateboxsize();
+            return Boxsize;
+        }
+
+        protected:
+        double Boxsize;
+        void calculateboxsize(){
+            Boxsize = (length + breadth + height) * 4 ;
+        }
+
+        private:
+        double square;
+        double caculatesquare(void){
+            square = 2 * (length * breadth + length * height + breadth * height);
+            return square;
+        }
+
+
+
+
+    }box1,box2;
+    //Box类的变量既可以在外部定义，也可以在内部定义
+    Box box3;
+    Box box4;
+
+    //下述两种设定方式，一种是函数，由我们自己设定，一种是直接访问public变量输入长宽高
+    box1.length = 13;
+    box1.breadth = 12;
+    box1.height = 11;
+    box2.set(3 , 4 ,5);
+    box3.set(5, 6 ,7 );
+
+    //下述有两种函数调用逻辑
+    //第一种：getvolume函数被定义在public区域，可以被直接在class外部调用
+    //这种方式比较直接，相比第二种方式更好理解
+    double volume = box3.getvolume();
+    cout << "Volume of BOX3 : " << volume << endl;
+    //第二种：caculatesuqare函数定义在private区域，不能在class外调用
+    //因此，我们得在public区域定义getsquare函数获取caculate值，得到square
+    double square = box2.getsquare();
+    cout << "Square of BOX2 : " << square << endl;
+
+    //类的嵌套
+    Box::smallBox smallbox5;
+    smallbox5.set(13.2 , 13.4 , 15.2);
+    double box5size = smallbox5.getboxsize();
+    smallbox5.setbox(box4 , 13.2 , 14.6 , 17.2);
+    double box4size = box4.getboxsize();
+    cout << "BOX4 size : " << box4size <<endl;
+    cout << "BOX5 size : " << box5size << endl;
+
+    //派生类的protected调用
+    class otherBox : public Box
+    {
+        public:
+        void showBoxsize(){
+            calculateboxsize();
+        }
+    };
+    otherBox otbox6;
+    otbox6.set(3.5 , 6.1 , 3.4);
+    otbox6.showBoxsize();
+    double otbox6size = otbox6.getboxsize();
+    cout << "BOX6 size : " << otbox6size << endl;
+
+    
+
+
+
+    /*
+    想必你看完上面的代码绕来绕去一脸懵逼，请看下面的讲解
+    */
+    //上面我们定义了一个Box类，并附赠box1,和box2两个Box类变量
+    /*
+    在面向对象编程的过程中，我们一般会采用四个规范
+    1. 花括号单占一行，就是上面的书写方式,即BSD风格或Allman风格
+    2. 最好使用public private protected进行修饰圈画以增强可读性而非采用默认修饰
+    3. 合理变量命名方式与注释规范
+    4. 尽可能在calss内部定义好函数而非在外部定义以减少维护难度
+    现在讲解一下上面的具体语法
+    class 类型名
+    {
+        权限[访问修饰符]:
+        定义变量或函数
+    }(可选：初始类变量);
+    
+    1. 访问修饰符：
+    public: 成员可以被内外部的任何成员访问修改
+    private: 成员只能被内部成员访问修改，单派生类型不可以
+    protected: 成员既可以被内部成员访问，也可以被派生类型访问，如果没有继承与派生，他本质与private无异
+    
+    2. 派生类型：
+    在上面的代码里，我们创建了otherBox类，它是Box的派生类型
+    但对于smallbox，它是Box的嵌套
+    
+    3. 默认访问修饰
+    double volume定义在class内部但不在非任何访问修饰符内
+    class类默认认为这些都是private类型，相比之下struct默认为public类型
+    
+    4. class内部函数定义
+    当我们在main中定义class时，函数必须要在内部完成定义，也就是我们上面的写法
+    若我们的class定义在全局当中，函数则可以通过下面的方式在外部定义
+    void Box::set(double len, double bre , double hei){
+        length = len;
+        breadth = bre;
+        height = hei;
+    }
+
+    5. class函数的调用
+    我们在上面讲了两个函数调用方式
+    实际上第二种是private如何与外界沟通的方式
+    
+    6. 各个对象的权限
+    对象：如box的对象是box1,box2,box3，而smallbox的对象是samllbox4
+    一个很重要的一点是，smallbox无法通过box的函数设定自己的对象
+    因为box下的成员函数操作的都是自己对象的成员变量
+    其核心是作用于自己的对象上
+    这也就本质决定了上面的smallbox无法使用box的函数设定自己的smallbox对象
+    但smallbox能否调用box的函数设定box的对象呢？
+    答案是可以！
+    我们只需要给smallbox一个box对象就可以了
+    但smallbox与box属于一个内外层的嵌套关系，它们界限分明无法直接互相调用
+    因此我们得借助指针从内存层传递参数，就是我们的setbox函数
+
+    7.派生类型的protected调用
+    派生和继承会在后续讲解到，这里只需要理解即可
+    我们在上面定义了一个叫otherBox的派生类型
+    它在外是可以访问Box里的protected和public权限下的东西
+    同样的Box也可以访问派生类型的protected与public
+    */
+
+    /*  --- 类构造函数&析构函数 ---  */
+    //一、类的构造函数
+    /*
+    构造函数是一种特殊的成员函数
+    在每次创建类的新对象时，构造函数都会自动执行
+    构造函数的名称与类的名称完全相同，且没有返回类型
+    构造函数通常用于成员变量设置初始值
+    */
+    
+
+
+
+
+
 
     
 
@@ -1363,3 +1569,4 @@ int min(int num1, int num2){
     }
     return result;
 }
+
