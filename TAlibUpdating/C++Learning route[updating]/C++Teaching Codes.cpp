@@ -347,6 +347,111 @@ triangle::triangle(double hi , double de){
 
 //重点：拷贝结构函数
 //&object是一个引用，因此这里是一个函数引用
+/*
+那么到底什么意思？看下面的一个长难句就会了
+拷贝构造函数通常与类相生
+并且通常被认为是是一个初始化函数的常用工具
+首先区分堆与栈
+同为内存，但其运作逻辑不同，容量亦有差别
+栈以先进后出的原则进行数据存储，顺序数据压栈与出栈，速度很快，但容量很小
+我们定义的变量通常放在栈内
+堆则相反，容量大，速度慢，且分散，但优点是可供我们操作，可以申请堆空间进行一些想要的操作
+然后再理解实参形参是值拷贝.
+实参的值要传给形参，系统会自动创建副本进行复制，这就是拷贝。
+你可以理解为形参就是这个副本，因为本质上我们通过引用实现传参
+这雨我们的拷贝函数类似
+如果我们想要创建一个和已经定义的类的变量内部数值等都相同的同类的变量，就可以用拷贝
+拷贝分为显式拷贝和隐式拷贝
+它们唯一的区别在于代码写法
+显式拷贝
+Line line2(line1);
+隐式拷贝
+Line line2 ＝ line1;
+我们只需要选择一个喜欢的写法即可
+那么它们的底层运行是什么样的呢
+首先我们先看拷贝构造函数如何定义
+class Line
+{
+    public:
+    Line(double len);
+    ~Line();
+    Line(const double &obj){
+        ptr ＝ new double;
+        *ptr ＝ *obj.length;
+    }
+    
+    private:
+    double length;
+    doyble* ptr;
+};
+
+Line::Line(double len){
+    lengtlen＝ len;
+    *ptr＝len;
+}
+
+Line::~Line(){
+    delete ptr;
+}
+
+Line line1(1.1);
+Line line2(line1);
+Line line3 ＝ line1;
+
+上述代码中，我们创建了一个Line类，并定义了三个Line类变量line1，line2，line3
+我们给line2和line3都拷贝了line1
+在这个过程中，我们的隐式拷贝和显式拷贝被系统识别，触发运作拷贝构造函数
+Line(const double &obj)
+这个函数与别的函数的不同之处在于
+我们为了安全性规定使用const避免拷贝变值
+我们为了正常运作采纳引用变量obj
+我们可以看到我们的这个Line类与先前学过的都不同
+它多了一个double指针ptr
+多了一个obj.length的写发
+在这个过程中到底发生了什么？
+首先，在编译器处理到拷贝式的时候，它会确认一件事
+当前类是否有已定义的拷贝构造函数？
+如果有，他就会按照定义好的拷贝构造函数进行
+如果没有，他就会自动生成一个拷贝构造函数
+这两者有什么区别？我们最后讲述。
+接着，我们开始调用拷贝构造函数
+拷贝构造函数与先前学习的构造函数有相似之处，但差距在于拷贝构造函数内部采纳了引用。
+接上，我们要使用拷贝构造函数前，
+系统会创建一个引用副本，这个副本被赋值为实参，也就是我们的line1
+相当于这个形参obj引用引用了line1，在这种情况下，obj在拷贝构造函数里就成了line1的别名
+因此obj.length本质上会被编译成line1.length
+那么大概我们也可以猜到了
+这个line1.length被赋值给了我们新创建的变量
+但，这个值是怎么被赋给它的？
+没错就是靠指针。
+我们在Line的private里还定义了一个ptr指针
+我们以line2初始化为line1为例
+在当前调用的拷贝构造函数里
+，我们函数中的的ptr实际上就是line2的ptr，而非line1的
+原因说专业点就是这里的line2是左值，而line1是右值，所以等号左侧代表的是line2而非line1。
+那么通俗的来说，就是我们当前调用的拷贝构造函数是line2的，
+其中直接调用的变量都从line2的类中取，只有line1是传入参数在等号右侧用于给左侧line2的变量赋值。
+好，接下来我们就可以理解这个拷贝构造函数里的最后一个等式。
+*ptr＝*obj.length;
+ptr的new我们之前讲过，是为ptr开了一个新的堆空间，我们也可以认为这是一个临时空间
+为什么，这里的解引用，对一个指针来讲就是取它的地址下的值，这个解释同样对obj.length一样，
+因为这里的obj是引用，解引用就是取值。
+他们分别取了line2的length和line1的length
+这里值＝值
+就成功把line1的长度值给到line2，实现拷贝
+我们放到整个函数流程上看，在构造函数里我们让ptr指向当前类的length，
+然后在析构函数里我们用delete把new出来的ptr内存空间给释放了
+所以就这样，拷贝构造函数实现
+
+
+
+
+
+
+
+*/
+
+
 triangle::triangle(const triangle &object){
     //new用于开辟堆空间，把地址赋予给ptr
     ptr = new double;
@@ -1469,7 +1574,7 @@ string used \'\\\' in the sentence\n";
     cout << myMap["apple"]; // 输出 10  
      
     //Set 集合 需要引用<set>头文件
-    set<int> s;
+    
     
     //Vector 动态数组 需要引用<vector>头文件
     vector<int> v;
@@ -1736,21 +1841,14 @@ string used \'\\\' in the sentence\n";
     所以，对于上面的一些变量或函数，我们没法用delete删掉
     */
     
-    //方式一
     triangle little_triangle(3,5);
     square = little_triangle.getsquare();
-    cout << "三角形面积 ： " << square << endl;
-    //方式二
-    triangle another_triangle(4,5);
-    triangle anonother_triangle = another_triangle;
-
+    cout << "初始默认三角形面积 ： " << square << endl;
+    triangle another_triangle(little_triangle);
+    triangle lilitle_triangle = little_triangle;
     /*
-    new函数
-    new它负责开辟一块堆空间，然后再把这个堆空间的地址给到我们的指针或分配给变量
-    因此我们就能对该指针或者变量进行delete清空操作
+    关于拷贝函数的种种，你可以回到头部那里学习
     */
-    
-
 
 
 
@@ -1778,4 +1876,3 @@ int min(int num1, int num2){
     }
     return result;
 }
-
